@@ -75,13 +75,13 @@
                     </div>
                     <div class="col-md-2"></div>
                     <div class="col-md-2">
-                        <button class="btn btn-danger btn-sm btn-block" type="button">ON MEETING</button>
+                        <button class="btn btn-danger btn-sm btn-block onButton" type="button">ON MEETING</button>
                     </div>
                     <div class="col-md-2">
-                        <button class="btn btn-danger btn-sm btn-block" type="button">ON LEAVE</button>
+                        <button class="btn btn-danger btn-sm btn-block onButton" type="button">ON LEAVE</button>
                     </div>
                     <div class="col-md-2">
-                        <button class="btn btn-danger btn-sm btn-block" type="button">ON TRAVEL</button>
+                        <button class="btn btn-danger btn-sm btn-block onButton" type="button">ON TRAVEL</button>
                     </div>
                    
 
@@ -154,17 +154,34 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+          <h5 class="modal-title" id="exampleModalLongTitle">Date Schedule</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          ...
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group ">
+                <label for="fullname" class="control-label col-md-4">FromDate:</label>
+                <div class="col-md-8">
+                  <input class=" form-control" name="firstname" type="date" />
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group ">
+                <label for="fullname" class="control-label col-md-4">ToDate:</label>
+                <div class="col-md-8">
+                  <input class=" form-control" name="firstname" type="date" />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-primary">Save</button>
         </div>
       </div>
     </div>
@@ -177,7 +194,7 @@
        headers: {  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
      });
 
-     $(document).on("click", ".add-account" , function(e) {
+     $(document).on("click", ".onButton" , function(e) {
               e.preventDefault();
         $('#AccountModal').modal('show');
 
