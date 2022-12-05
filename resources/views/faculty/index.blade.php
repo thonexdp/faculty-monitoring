@@ -3,6 +3,11 @@
 @section('content')
 @section('content')
  <!--overview start-->
+ <style>
+  .mt-2{
+    margin-top: 5px;
+  }
+ </style>
  <div class="row">
     <div class="col-lg-12">
       {{-- <h3 class="page-header"><i class="fa fa-files-o"></i> Form Validation</h3> --}}
@@ -67,21 +72,21 @@
                   <hr>
                   <div class="row">
                     <div class="col-md-2">
-                        <button class="btn btn-primary btn-sm btn-block" type="button">IN</button>
+                        <button class="btn btn-primary btn-sm btn-block attendance mt-2" data-type="in" type="button">IN</button>
                     </div>
                     <div class="col-md-2">
-                        <button class="btn btn-primary btn-sm btn-block" type="button">OUT</button>
+                        <button class="btn btn-primary btn-sm btn-block attendance mt-2" data-type="out"  type="button">OUT</button>
                        
                     </div>
                     <div class="col-md-2"></div>
                     <div class="col-md-2">
-                        <button class="btn btn-danger btn-sm btn-block onButton" type="button">ON MEETING</button>
+                        <button class="btn btn-danger btn-sm btn-block onButton mt-2" type="button">ON MEETING</button>
                     </div>
                     <div class="col-md-2">
-                        <button class="btn btn-danger btn-sm btn-block onButton" type="button">ON LEAVE</button>
+                        <button class="btn btn-danger btn-sm btn-block onButton mt-2" type="button">ON LEAVE</button>
                     </div>
                     <div class="col-md-2">
-                        <button class="btn btn-danger btn-sm btn-block onButton" type="button">ON TRAVEL</button>
+                        <button class="btn btn-danger btn-sm btn-block onButton mt-2" type="button">ON TRAVEL</button>
                     </div>
                    
 
@@ -122,13 +127,7 @@
                                 <th scope="col">Status</th>
                               </tr>
                             </thead>
-                            <tbody>
-                              <tr>
-                                <td> 8: 00 AM</td>
-                                <td> 9: 00 AM</td>
-                                <td>On Leave</td>
-                                <td> NOv. 23, 2022 - Dec. 14, 2022</td>
-                              </tr>
+                            <tbody class="tbodyrow">
                             </tbody>
                           </table>
                     </div>
@@ -193,59 +192,22 @@
   $.ajaxSetup({
        headers: {  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
      });
-
+     getInfo()
      $(document).on("click", ".onButton" , function(e) {
               e.preventDefault();
         $('#AccountModal').modal('show');
 
      })
-            $('#employee-table').DataTable({
-                processing: true,
-                //info: true,
-                responsive : true,
-                ordering: false,
-                "ajax" :{
-                    "url" : "/employee/show",
-                    "type" : "POST",
-                      // "data": function(set){
-                      //           set.campus = campus;
-                      //       },
-                      // error: function (xhr, error, code) {
-                      //       console.log(xhr, code);
-                      //   }
-                      },
-                "pageLength": 10,
-                "aLengthMenu":[[10,25,50,100,-1],[10,25,50,100,'All']],
-                  columns: [
-                    {data: 'id', name: 'id'},
-                    {data: 'photo', name: 'photo'},
-                    {data: 'firstname', name: 'firstname'},
-                    {data: 'middlename', name: 'middlename'},
-                    {data: 'lastname', name: 'lastname'},
-                    {data: 'sex', name: 'sex'},
-                    {data: 'designation', name: 'designation'},
-                    {data: 'action', name: 'action'},                            
-                    ],
-                    error: function(err) {
-                        if(err.status === 500){
-                            toastr.error('Server is Offline')  
-                        }
-                      }
-              })
 
-
-              $(document).on("click", ".btn-delete-employee" , function(e) {
+               $(document).on("click", ".attendance" , function(e) {
               e.preventDefault();
-                  const id = $(this).data('id')
-                  alerty.confirm(
-                          'Are you sure to this delete permanently??', 
-                          {title: 'Confirm!', cancelLabel: 'Cancel', okLabel: 'Confirm'}, 
-                          function(){
-                            $.ajax({
-                              url: '/employee/delete',
+            var type = $(this).data('type');
+
+                         $.ajax({
+                              url: '/faculty/savelogs',
                               type: 'post',
                               data: {
-                                    id
+                                type
                                 },
                               dataType: 'json',
                               beforeSend:function(){
@@ -254,23 +216,123 @@
                               success:function(result){
                                   console.log('res: ', result);
                                   if(result.status == 200){
-                                    $('#employee-table').DataTable().ajax.reload();
+                                    getInfo()
+                                  //  $('#employee-table').DataTable().ajax.reload();
                                      // toastr.success(result.message)
                                   }
                                   else{
+                                    alert('error')
                                     //toastr.error('Error: Please try again!')
 
                                   }
                               }
                             })
-                          },
-                          function() {
-                           // alerty.toasts('this is cancel callback')
-                          }
-                        )
+
+     })
+
+
+
+     function getInfo(){
+                  $.ajax({
+                    url: '/faculty/show',
+                    type: 'post',
+                    dataType: 'json',
+                    beforeSend:function(){
+                     // $('#bills-form')[0].reset();
+                      // $('.loading-select').html('<i class="spinner-border spinner-border-sm"></i> Loading... ');
+                    },
+                    success:function(result){
+                        console.log('res: ', result);
+                        if(result.status == 200){
+
+                          $('.tbodyrow').html('<tr>\
+                                <td> '+(result.data.timein?result.data.timein:'')+'</td>\
+                                <td>'+(result.data.timeout?result.data.timeout:'')+'</td>\
+                                <td>'+(result.data.status?result.data.status:'')+'</td>\
+                                <td> '+(result.data.remarks?result.data.remarks:'')+'</td>\
+                              </tr>')
+                         
+                     
+                        }
+                    }
+                  })
+
+                }
+     
+
+
+            // $('#employee-table').DataTable({
+            //     processing: true,
+            //     //info: true,
+            //     responsive : true,
+            //     ordering: false,
+            //     "ajax" :{
+            //         "url" : "/employee/show",
+            //         "type" : "POST",
+            //           // "data": function(set){
+            //           //           set.campus = campus;
+            //           //       },
+            //           // error: function (xhr, error, code) {
+            //           //       console.log(xhr, code);
+            //           //   }
+            //           },
+            //     "pageLength": 10,
+            //     "aLengthMenu":[[10,25,50,100,-1],[10,25,50,100,'All']],
+            //       columns: [
+            //         {data: 'id', name: 'id'},
+            //         {data: 'photo', name: 'photo'},
+            //         {data: 'firstname', name: 'firstname'},
+            //         {data: 'middlename', name: 'middlename'},
+            //         {data: 'lastname', name: 'lastname'},
+            //         {data: 'sex', name: 'sex'},
+            //         {data: 'designation', name: 'designation'},
+            //         {data: 'action', name: 'action'},                            
+            //         ],
+            //         error: function(err) {
+            //             if(err.status === 500){
+            //                 toastr.error('Server is Offline')  
+            //             }
+            //           }
+            //   })
+
+
+            //   $(document).on("click", ".btn-delete-employee" , function(e) {
+            //   e.preventDefault();
+            //       const id = $(this).data('id')
+            //       alerty.confirm(
+            //               'Are you sure to this delete permanently??', 
+            //               {title: 'Confirm!', cancelLabel: 'Cancel', okLabel: 'Confirm'}, 
+            //               function(){
+            //                 $.ajax({
+            //                   url: '/employee/delete',
+            //                   type: 'post',
+            //                   data: {
+            //                         id
+            //                     },
+            //                   dataType: 'json',
+            //                   beforeSend:function(){
+            //                     // $('.loading-select').html('<i class="spinner-border spinner-border-sm"></i> Loading... ');
+            //                   },
+            //                   success:function(result){
+            //                       console.log('res: ', result);
+            //                       if(result.status == 200){
+            //                         $('#employee-table').DataTable().ajax.reload();
+            //                          // toastr.success(result.message)
+            //                       }
+            //                       else{
+            //                         //toastr.error('Error: Please try again!')
+
+            //                       }
+            //                   }
+            //                 })
+            //               },
+            //               function() {
+            //                // alerty.toasts('this is cancel callback')
+            //               }
+            //             )
                                 
 
-            })
+            // })
 
 
 

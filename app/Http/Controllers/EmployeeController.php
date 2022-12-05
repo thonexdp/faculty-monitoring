@@ -6,6 +6,8 @@ use App\Models\Designation;
 use App\Models\Expertise;
 use App\Models\Faculty;
 use App\Models\Account;
+use App\Models\Schedule;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -171,6 +173,65 @@ class EmployeeController extends Controller
            'message' => 'No record found',
        ]);
    }
+
+   public function savelogs(Request $request){
+
+    $type = $request->type;
+    $fId = session('facultyId');
+
+    $found = Schedule::where('fId',$fId)->first();
+    if($found){
+        if($type == 'in'){
+            $found->timein = Carbon::now();
+        }else if($type == 'out'){
+            $found->timeout = Carbon::now();
+        }
+        $found->fId = $fId;
+        $found->update();
+    }else{
+        $save = new Schedule();
+        if($type == 'in'){
+            $save->timein = Carbon::now();
+        }else if($type == 'out'){
+            $save->timeout = Carbon::now(); 
+        }
+        $save->fId = $fId;
+        $save->save();
+    }
+    return response()->json([
+        'status' => 200,
+        'message' => 'Saved Successfully'
+    ]);
+   }
+
+   public function showlogs(){
+    $fId = session('facultyId');
+    $found = Schedule::where('fId',$fId)->first();
+    if($found){
+        return response()->json([
+            'status' => 200,
+            'data' => $found
+        ]);
+    }
+    return response()->json([
+        'status' => 400,
+        'message' => 'No record found',
+    ]);
+   }
+
+//    public function showlogsall(){
+//     $found = Schedule::all();
+//     if($found){
+//         return response()->json([
+//             'status' => 200,
+//             'data' => $found
+//         ]);
+//     }
+//     return response()->json([
+//         'status' => 400,
+//         'message' => 'No record found',
+//     ]);
+//    }
 
 
 

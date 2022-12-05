@@ -9,5 +9,11 @@ class Schedule extends Model
 {
     use HasFactory;
     public $timestamps = false;
+    protected $with = ['faculty'];
     protected $table = 'schedule';
+
+    public function faculty()
+    {
+        return $this->hasOne(Faculty::class,'id','fId');
+    }
 }

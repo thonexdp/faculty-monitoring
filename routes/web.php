@@ -62,8 +62,8 @@ Route::group(['prefix' => 'account', 'middleware' => ['admin']], function() {
 Route::group(['prefix' => 'faculty', 'middleware' => ['faculty']], function() {
     Route::get('/', [EmployeeController::class, 'indexF']);
     // Route::get('/add', [EmployeeController::class, 'add']);
-    // Route::post('/store', [EmployeeController::class, 'store']);
-    // Route::post('/show', [EmployeeController::class, 'show']);
+     Route::post('/savelogs', [EmployeeController::class, 'savelogs']);
+     Route::post('/show', [EmployeeController::class, 'showlogs']);
     // // Route::post('/bycampus', [DepartmentController::class, 'bycampus']);
     // // Route::post('/one', [DepartmentController::class, 'one']);
     //  Route::post('/delete', [EmployeeController::class, 'destroy']);

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Faculty;
+use App\Models\Schedule;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -12,6 +13,7 @@ class DashboardController extends Controller
             return redirect('login');
         }
         $faculty = Faculty::all();
-        return view('admin.index', compact('faculty'));
+        $schedule = Schedule::all();
+        return view('admin.index', compact('faculty','schedule'));
     }
 }

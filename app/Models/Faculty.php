@@ -16,5 +16,7 @@ class Faculty extends Model
     {
         return $this->hasOne(Designation::class,'id','designation');
     }
+
+  
 }
 

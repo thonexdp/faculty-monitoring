@@ -123,14 +123,18 @@ DROP TABLE IF EXISTS `schedule`;
 
 CREATE TABLE `schedule` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `timein` time DEFAULT NULL,
-  `timeout` time DEFAULT NULL,
+  `timein` varchar(50) DEFAULT NULL,
+  `timeout` varchar(50) DEFAULT NULL,
   `status` varchar(255) DEFAULT NULL,
   `remarks` varchar(255) DEFAULT NULL,
+  `fId` int(12) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `schedule` */
+
+insert  into `schedule`(`id`,`timein`,`timeout`,`status`,`remarks`,`fId`) values 
+(3,'2022-12-05 13:42:50','2022-12-05 13:42:54',NULL,NULL,5);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

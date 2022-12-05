@@ -243,34 +243,17 @@
                   </tr>
                 </thead>
                 <tbody>
+                  @if($schedule)
+                  @foreach($schedule as $value)
                   <tr>
-                    <td>Antonio De Paz Jr</td>
-                    <td>8:00 AM</td>
-                    <td>10:00 PM</td>
-                    <td>ON LEAVE</td>
-                    <td>Jan. 13, 2022 - Jan. 25, 2022</td>
+                    <td> <b> {{ empty($value['faculty'])?'':$value['faculty']['firstname']." ".$value['faculty']['middlename']." ".$value['faculty']['lastname'] }} </b> </td>
+                    <td>{{ $value['timein'] }}</td>
+                    <td>{{ $value['timeout'] }}</td>
+                    <td>{{ $value['status'] }}</td>
+                    <td>{{ $value['remarks'] }}</td>
                   </tr>
-                  <tr>
-                    <td>Antonio De Paz Jr</td>
-                    <td>8:00 AM</td>
-                    <td>10:00 PM</td>
-                    <td>ON LEAVE</td>
-                    <td>Jan. 13, 2022 - Jan. 25, 2022</td>
-                  </tr>
-                  <tr>
-                    <td>Antonio De Paz Jr</td>
-                    <td>8:00 AM</td>
-                    <td>10:00 PM</td>
-                    <td>ON LEAVE</td>
-                    <td>Jan. 13, 2022 - Jan. 25, 2022</td>
-                  </tr>
-                  <tr>
-                    <td>Antonio De Paz Jr</td>
-                    <td>8:00 AM</td>
-                    <td>10:00 PM</td>
-                    <td>ON LEAVE</td>
-                    <td>Jan. 13, 2022 - Jan. 25, 2022</td>
-                  </tr>
+                  @endforeach
+                  @endif
                 </tbody>
               </table>
             </div>
