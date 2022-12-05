@@ -29,7 +29,7 @@ Route::get('/login', function () {
     return view('login');
 });
 
-Route::get('/', [DashboardController::class, 'index'])->middleware('admin');
+Route::get('/', [DashboardController::class, 'index']);
 Route::get('/logout', [AccountController::class, 'logout']);
 Route::post('/login', [AccountController::class, 'login']);
 Route::group(['prefix' => 'dashboard', 'middleware' => ['admin']], function() {
