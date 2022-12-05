@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Account;
+use App\Models\Faculty;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
+use Yajra\DataTables\DataTables;
 
 class AccountController extends Controller
 {
@@ -40,6 +43,41 @@ class AccountController extends Controller
     
     
     }
+
+    public function show(){
+        $dataResult = new Collection();
+        $employee = Account::all();
+      
+        foreach ($employee as $key => $value) {
+            $url= empty($value['photo'])?asset('img/emptyprofile.png'):asset('storage/images/'.$value['photo']);
+            $usertype  = '';
+            if($value['usertype'] == 1){
+                $usertype = 'Admin';
+            }else if($value['usertype'] == 2){
+                $usertype = 'Faculty';
+            }else if($value['usertype'] == 3){
+                $usertype = 'Dean';
+            }
+                $dataResult->push([
+                    'id' => $key + 1,
+                    'photo'  => '<img src="'.$url.'"  width="70" style="border-radius: 50%;">', 
+                    'firstname'  => $value['firstname'],
+                    'lastname'  => $value['lastname'],
+                    'username'  => $value['username'],
+                    'usertype'  => $usertype,
+                    // 'action'  => ' <div class="btn-group" role="group">
+                    //         <button type="button" class="btn btn-outline-light btn-sm btn-edit-employee" data-id="'.$value['id'].'">edit</button>
+                    //         <button type="button" class="btn btn-outline-light btn-sm btn-delete-employee" data-id="'.$value['id'].'">delete</button>
+                    //     </div>',
+                ]);
+       }
+       return DataTables::of($dataResult)
+    //    ->editColumn('action', function ($row) {return $row['action'];})
+       ->editColumn('photo', function ($row) {return $row['photo'];})
+       ->rawColumns(['photo'])
+       ->make(true);
+   }
+
 
     public function logout()
     {

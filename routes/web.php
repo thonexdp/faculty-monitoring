@@ -55,6 +55,7 @@ Route::group(['prefix' => 'employee', 'middleware' => ['admin']], function() {
 
 Route::group(['prefix' => 'account', 'middleware' => ['admin']], function() {
     Route::get('/', [AccountController::class, 'index']);
+    Route::post('/show', [AccountController::class, 'show']);
     
 });
 

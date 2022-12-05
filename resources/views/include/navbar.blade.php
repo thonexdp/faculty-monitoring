@@ -4,7 +4,17 @@
     </div>
 
     <!--logo start-->
-    <a href="index.html" class="logo">Faculty Monitoring <span class="lite">- Admin</span></a>
+    <?php
+      $role = '';
+      if(session('usertype') == 1){
+        $role = 'Admin';
+      }else if(session('usertype') == 2){
+        $role = 'Faculty';
+      }else if(session('usertype') == 3){
+        $role = 'Dean';
+     }
+    ?>
+    <a href="index.html" class="logo">Faculty Monitoring <span class="lite">- {{ $role }}</span></a>
     <!--logo end-->
 
     {{-- <div class="nav search-row" id="top_menu">
