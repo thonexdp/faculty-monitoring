@@ -240,10 +240,10 @@
                       </a>
           <ul class="dropdown-menu extended logout">
             <div class="log-arrow-up"></div>
-            {{-- <li class="eborder-top">
-              <a href="#"><i class="icon_profile"></i> My Profile</a>
+            <li class="eborder-top">
+              <a href="#" class="myprofile"><i class="icon_profile"></i> My Profile</a>
             </li>
-            <li>
+            {{-- <li>
               <a href="#"><i class="icon_mail_alt"></i> My Inbox</a>
             </li>
             <li>
@@ -269,7 +269,57 @@
     </div>
   </header>
   <!--header end-->
+  <div class="modal fade" id="MyProfileModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">My Profile</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <input type="hidden" name="d_id">
+            <div class="row" style="margin: 20px;">
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Firstnme</label>
+                  <input type="text" name="firstname" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter FirstName" value="{{session('firstname')}}">
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Lastnme</label>
+                  <input type="text" name="lastname" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter LastName" value="{{session('lastname')}}">
+                </div>
+              </div>
+            </div>
 
+            <div class="row" style="margin: 20px;">
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Username</label>
+                  <input type="text" name="username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Username" value="{{session('username')}}">
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Password <i class="text-warning">Leave Empty if No changes</i></label>
+                  <input type="password" name="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Leave Blank if no changes">
+                </div>
+              </div>
+            </div>
+           
+          </form>
+        </div>
+        <div class="modal-footer mt-4">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary save-d">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
 
@@ -314,6 +364,28 @@
   <script src="js/sparklines.js"></script>
   <script src="js/charts.js"></script>
   <script src="js/jquery.slimscroll.min.js"></script>
+  <script>
+    $(document).ready( function () {
+        $.ajaxSetup({
+        headers: {  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+        });
+
+
+
+        $(document).on("click", ".myprofile" , function(e) {
+          e.preventDefault();
+          //$('input[name="d_id"]').val('')
+          $('#MyProfileModal').modal('show')
+
+        })
+
+
+
+     });
+
+
+
+  </script>
   <script>
     //knob
     $(function() {
