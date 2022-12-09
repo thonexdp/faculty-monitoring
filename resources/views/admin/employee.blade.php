@@ -33,6 +33,7 @@
                             <th>FirstName</th>
                             <th>MiddleName</th>
                             <th>LastName</th>
+                            <th>EmployeeNo.</th>
                             <th>Sex</th>
                             <th>Designation</th>
                             <th></th>
@@ -80,6 +81,7 @@
                     {data: 'firstname', name: 'firstname'},
                     {data: 'middlename', name: 'middlename'},
                     {data: 'lastname', name: 'lastname'},
+                    {data: 'empno', name: 'empno'},
                     {data: 'sex', name: 'sex'},
                     {data: 'designation', name: 'designation'},
                     {data: 'action', name: 'action'},                            
