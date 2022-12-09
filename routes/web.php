@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DesignationController;
 use App\Http\Controllers\EmployeeController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,7 +29,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/login', function () {
     return view('login');
 });
-
 Route::get('/', [DashboardController::class, 'index']);
 Route::get('/logout', [AccountController::class, 'logout']);
 Route::post('/login', [AccountController::class, 'login']);
@@ -56,6 +56,15 @@ Route::group(['prefix' => 'employee', 'middleware' => ['admin']], function() {
 Route::group(['prefix' => 'account', 'middleware' => ['admin']], function() {
     Route::get('/', [AccountController::class, 'index']);
     Route::post('/show', [AccountController::class, 'show']);
+    
+});
+
+Route::group(['prefix' => 'designation', 'middleware' => ['admin']], function() {
+    Route::get('/', [DesignationController::class, 'index']);
+    Route::post('/show', [DesignationController::class, 'show']);
+    Route::post('/save', [DesignationController::class, 'store']);
+    Route::post('/edit', [DesignationController::class, 'edit']);
+    Route::post('/delete', [DesignationController::class, 'destroy']);
     
 });
 

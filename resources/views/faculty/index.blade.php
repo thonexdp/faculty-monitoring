@@ -65,7 +65,7 @@
             <div id="profile">
               <section class="panel">
                 <div class="bio-graph-heading" style="padding: 10px;">
-                    Logs To Monitor yout status
+                    Faculty Monitoring Status
                 </div>
                 <div class="panel-body bio-graph-info">
                   <h3>Status</h3>
@@ -194,12 +194,14 @@
        headers: {  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
      });
      getInfo()
+
                 $(document).on("click", ".onButton" , function(e) {
                           e.preventDefault();
                           var type = $(this).data('type');
                           $('#on-leave').find('input[name="type"]').val(type);
                        $('#AccountModal').modal('show');
                   })
+
 
                $(document).on("click", ".attendance" , function(e) {
               e.preventDefault();
