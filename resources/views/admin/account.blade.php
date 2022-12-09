@@ -30,7 +30,7 @@
                             <th>#</th>
                             <th>Avatar</th>
                             <th>FirstName</th>
-                            <th>MiddleName</th>
+                            <th>LastName</th>
                             <th>UserName</th>
                             <th>User Type</th>
                             <th></th>
