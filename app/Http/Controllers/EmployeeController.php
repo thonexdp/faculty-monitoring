@@ -142,6 +142,7 @@ class EmployeeController extends Controller
                     'firstname'  => $value['firstname'],
                     'middlename'  => $value['middlename'],
                     'lastname'  => $value['lastname'],
+                    'empno'  =>  $value['employeeId'],
                     'sex'  =>  strtoupper($value['sex']),
                     'designation'  => empty($value['Designation'])?'':$value['Designation']['name'],
                     'action'  => ' <div class="btn-group" role="group">
@@ -178,15 +179,24 @@ class EmployeeController extends Controller
 
     $type = $request->type;
     $fId = session('facultyId');
-
+    $typeOn = array("meeting", "leave", "travel");
     $found = Schedule::where('fId',$fId)->first();
     if($found){
         if($type == 'in'){
             $found->timein = Carbon::now();
+            $found->status = null;
+            $found->remarks = null;
         }else if($type == 'out'){
             $found->timeout = Carbon::now();
+            $found->status = null;
+            $found->remarks = null;
+        }else if(in_array($type, $typeOn)){
+            $found->timein = null;
+            $found->timeout = null;
+            $found->status = 'ON '.strtoupper($type);
+            $found->remarks = $request->from." - ".$request->to;
         }
-        $found->fId = $fId;
+       // $found->fId = $fId;
         $found->update();
     }else{
         $save = new Schedule();
@@ -194,6 +204,9 @@ class EmployeeController extends Controller
             $save->timein = Carbon::now();
         }else if($type == 'out'){
             $save->timeout = Carbon::now(); 
+        }else if(in_array($type, $typeOn)){
+            $found->status = 'ON '.strtoupper($type);
+            $found->remarks = $request->from." - ".$request->to;
         }
         $save->fId = $fId;
         $save->save();

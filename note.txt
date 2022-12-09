@@ -1,0 +1,6 @@
+admin
+admin
+
+
+username: student ID
+pass : 12345

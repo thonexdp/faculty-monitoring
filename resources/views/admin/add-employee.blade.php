@@ -288,7 +288,7 @@
   //      $('#fines-form')[0].reset();
   //      $('#BillsModal').modal('show')
   //    })
- ;
+ //;
 
   //    $(document).on("submit", "#fines-form" , function(e) {
   //    e.preventDefault();

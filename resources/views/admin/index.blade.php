@@ -238,8 +238,8 @@
                     <th>NAME</th>
                     <th>TIME IN</th>
                     <th>TIME OUT</th>
-                    <th>REMARKS</th>
                     <th>STATUS</th>
+                    <th>REMARKS</th>
                   </tr>
                 </thead>
                 <tbody>

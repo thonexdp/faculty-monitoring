@@ -80,13 +80,13 @@
                     </div>
                     <div class="col-md-2"></div>
                     <div class="col-md-2">
-                        <button class="btn btn-danger btn-sm btn-block onButton mt-2" type="button">ON MEETING</button>
+                        <button class="btn btn-danger btn-sm btn-block onButton mt-2" type="button" data-type="meeting">ON MEETING</button>
                     </div>
                     <div class="col-md-2">
-                        <button class="btn btn-danger btn-sm btn-block onButton mt-2" type="button">ON LEAVE</button>
+                        <button class="btn btn-danger btn-sm btn-block onButton mt-2" type="button" data-type="leave">ON LEAVE</button>
                     </div>
                     <div class="col-md-2">
-                        <button class="btn btn-danger btn-sm btn-block onButton mt-2" type="button">ON TRAVEL</button>
+                        <button class="btn btn-danger btn-sm btn-block onButton mt-2" type="button" data-type="travel">ON TRAVEL</button>
                     </div>
                    
 
@@ -140,8 +140,6 @@
               </section>
             </div>
             <!-- edit-profile -->
-            
-         
         </div>
       </section>
     </div>
@@ -158,13 +156,15 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
+        <form id="on-leave">
+          <input type="hidden" name="type">
         <div class="modal-body">
           <div class="row">
             <div class="col-md-6">
               <div class="form-group ">
                 <label for="fullname" class="control-label col-md-4">FromDate:</label>
                 <div class="col-md-8">
-                  <input class=" form-control" name="firstname" type="date" />
+                  <input class=" form-control" name="from" type="date" />
                 </div>
               </div>
             </div>
@@ -172,7 +172,7 @@
               <div class="form-group ">
                 <label for="fullname" class="control-label col-md-4">ToDate:</label>
                 <div class="col-md-8">
-                  <input class=" form-control" name="firstname" type="date" />
+                  <input class=" form-control" name="to" type="date" />
                 </div>
               </div>
             </div>
@@ -180,8 +180,9 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save</button>
+          <button type="submit" class="btn btn-primary">Save</button>
         </div>
+        </form>
       </div>
     </div>
   </div>
@@ -193,15 +194,18 @@
        headers: {  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
      });
      getInfo()
-              $(document).on("click", ".onButton" , function(e) {
-                  e.preventDefault();
-                  $('#AccountModal').modal('show');
 
-              })
+                $(document).on("click", ".onButton" , function(e) {
+                          e.preventDefault();
+                          var type = $(this).data('type');
+                          $('#on-leave').find('input[name="type"]').val(type);
+                       $('#AccountModal').modal('show');
+                  })
+
 
                $(document).on("click", ".attendance" , function(e) {
               e.preventDefault();
-            var type = $(this).data('type');
+              var type = $(this).data('type');
 
                          $.ajax({
                               url: '/faculty/savelogs',
@@ -231,6 +235,30 @@
      })
 
 
+          $(document).on("submit", "#on-leave" , function(e) {
+              e.preventDefault();
+          
+            //  on-type
+              $.ajax({
+                  url:  '/faculty/savelogs',
+                  type: 'post',
+                  data: $('#on-leave').serialize(),
+                  beforeSend:function(){
+                    //$('#employee-form').find('span').text('');
+                    $('#on-leave').find('input').removeClass('is-invalid');
+                    //$('#fines-form').find('select').removeClass('is-invalid');
+                  },
+                  success:function(data){
+                    console.log(data);
+                      if(data.status === 200){
+                        $('#AccountModal').modal('hide');
+                                    getInfo()
+                      }
+                  }
+
+              });
+            });
+
 
      function getInfo(){
                   $.ajax({
@@ -258,91 +286,7 @@
                   })
 
                 }
-     
-
-
-            // $('#employee-table').DataTable({
-            //     processing: true,
-            //     //info: true,
-            //     responsive : true,
-            //     ordering: false,
-            //     "ajax" :{
-            //         "url" : "/employee/show",
-            //         "type" : "POST",
-            //           // "data": function(set){
-            //           //           set.campus = campus;
-            //           //       },
-            //           // error: function (xhr, error, code) {
-            //           //       console.log(xhr, code);
-            //           //   }
-            //           },
-            //     "pageLength": 10,
-            //     "aLengthMenu":[[10,25,50,100,-1],[10,25,50,100,'All']],
-            //       columns: [
-            //         {data: 'id', name: 'id'},
-            //         {data: 'photo', name: 'photo'},
-            //         {data: 'firstname', name: 'firstname'},
-            //         {data: 'middlename', name: 'middlename'},
-            //         {data: 'lastname', name: 'lastname'},
-            //         {data: 'sex', name: 'sex'},
-            //         {data: 'designation', name: 'designation'},
-            //         {data: 'action', name: 'action'},                            
-            //         ],
-            //         error: function(err) {
-            //             if(err.status === 500){
-            //                 toastr.error('Server is Offline')  
-            //             }
-            //           }
-            //   })
-
-
-            //   $(document).on("click", ".btn-delete-employee" , function(e) {
-            //   e.preventDefault();
-            //       const id = $(this).data('id')
-            //       alerty.confirm(
-            //               'Are you sure to this delete permanently??', 
-            //               {title: 'Confirm!', cancelLabel: 'Cancel', okLabel: 'Confirm'}, 
-            //               function(){
-            //                 $.ajax({
-            //                   url: '/employee/delete',
-            //                   type: 'post',
-            //                   data: {
-            //                         id
-            //                     },
-            //                   dataType: 'json',
-            //                   beforeSend:function(){
-            //                     // $('.loading-select').html('<i class="spinner-border spinner-border-sm"></i> Loading... ');
-            //                   },
-            //                   success:function(result){
-            //                       console.log('res: ', result);
-            //                       if(result.status == 200){
-            //                         $('#employee-table').DataTable().ajax.reload();
-            //                          // toastr.success(result.message)
-            //                       }
-            //                       else{
-            //                         //toastr.error('Error: Please try again!')
-
-            //                       }
-            //                   }
-            //                 })
-            //               },
-            //               function() {
-            //                // alerty.toasts('this is cancel callback')
-            //               }
-            //             )
-                                
-
-            // })
-
-
-
-
-              
-
-
-
-
-
+  
       })
   </script>
   
