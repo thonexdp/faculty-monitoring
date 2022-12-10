@@ -68,6 +68,7 @@
             $(document).on("click", ".add-d" , function(e) {
                       e.preventDefault();
                       $('input[name="d_id"]').val('')
+                      $('input[name="name"]').val('')
                       $('#DModal').modal('show')
 
             })
