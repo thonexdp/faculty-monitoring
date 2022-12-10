@@ -96,17 +96,8 @@
         <div class="container">
             <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                 <!-- Wrapper for slides -->
-                <div class="carousel-inner" role="listbox">
-                  <?php $countIndex = count($faculty);
-                 
-                
-                  // $chunkarr = array_chunk($faculty, 3);
-
-                 //print_r($chunkarr);
-                  ?>
-
-                
-                   
+                <div class="carousel-inner" role="listbox" style="margin-top: -90px;">
+                  <?php $countIndex = count($faculty); ?>
                     <div class="item active">
                         <div class="row">
                           @foreach ($faculty as $key => $value)
@@ -124,7 +115,7 @@
                                         </div>
                                         <div class="tcb-hline"></div>
                                         <div class="tcb-product-price text-right">
-                                            <a href="#"> <small>More Info</small> </a>
+                                            <a href="#" class="moreinfo" data-id="{{$value->id}}"> <small>More Info</small> </a>
                                         </div>
                                     </div>
                                 </div>
@@ -139,21 +130,20 @@
                       <div class="row">
                         @foreach ($faculty as $key => $value)
                         @if($key >= 3)
-                          <div class="col-xs-6 col-sm-4">
+                            <div class="col-xs-6 col-sm-4">
                               <div class="tcb-product-item">
                                   <div class="tcb-product-photo">
-                                      <a href="#"><img src="{{asset('storage/images/Juansda_1670133941.jpg')}}" class="img-responsive" alt="a" /></a>
+                                      <a href="#"><img src="{{ empty($value->photo)?asset('img/emptyprofile.png'):asset('storage/images/'.$value->photo)}}" class="img-responsive" alt="a" /></a>
                                   </div>
                                   <div class="tcb-product-info">
                                       <div class="tcb-product-title">
-                                          <h4><a href="#">Antonio De Paz Jr else if</a></h4></div>
+                                          <h4><a href="#"> <b> {{ $value->firstname." ".$value->middlename." ".$value->lastname }}</b></a></h4></div>
                                       <div class="tcb-product-rating">
-                                         <p>Instructor I</p>
+                                        <p style="color: #000;" >{{ empty($value->Designation)?'':$value->Designation['name'] }} </p>
                                       </div>
                                       <div class="tcb-hline"></div>
                                       <div class="tcb-product-price text-right">
-                                          <a href="#"> <small>More Info</small> </a>
-                                          <a href="#" data-toggle="popover" title="Popover Header" data-content="Some content inside the popover">Toggle popover</a>
+                                          <a href="#" class="moreinfo" data-id="{{$value->id}}"> <small>More Info</small> </a>
                                       </div>
                                   </div>
                               </div>
@@ -167,21 +157,20 @@
                         <div class="row">
                           @foreach ($faculty as $key => $value)
                           @if($key >= 6)
-                            <div class="col-xs-6 col-sm-4">
+                              <div class="col-xs-6 col-sm-4">
                                 <div class="tcb-product-item">
                                     <div class="tcb-product-photo">
-                                        <a href="#"><img src="{{asset('storage/images/Juansda_1670133941.jpg')}}" class="img-responsive" alt="a" /></a>
+                                        <a href="#"><img src="{{ empty($value->photo)?asset('img/emptyprofile.png'):asset('storage/images/'.$value->photo)}}" class="img-responsive" alt="a" /></a>
                                     </div>
                                     <div class="tcb-product-info">
                                         <div class="tcb-product-title">
-                                            <h4><a href="#">Antonio De Paz Jr else if</a></h4></div>
+                                            <h4><a href="#"> <b> {{ $value->firstname." ".$value->middlename." ".$value->lastname }}</b></a></h4></div>
                                         <div class="tcb-product-rating">
-                                           <p>Instructor I</p>
+                                          <p style="color: #000;" >{{ empty($value->Designation)?'':$value->Designation['name'] }} </p>
                                         </div>
                                         <div class="tcb-hline"></div>
                                         <div class="tcb-product-price text-right">
-                                            <a href="#"> <small>More Info</small> </a>
-                                            <a href="#" data-toggle="popover" title="Popover Header" data-content="Some content inside the popover">Toggle popover</a>
+                                            <a href="#" class="moreinfo" data-id="{{$value->id}}"> <small>More Info</small> </a>
                                         </div>
                                     </div>
                                 </div>
@@ -195,76 +184,105 @@
                           <div class="row">
                             @foreach ($faculty as $key => $value)
                             @if($key >= 9)
-                              <div class="col-xs-6 col-sm-4">
-                                  <div class="tcb-product-item">
-                                      <div class="tcb-product-photo">
-                                          <a href="#"><img src="{{asset('storage/images/Juansda_1670133941.jpg')}}" class="img-responsive" alt="a" /></a>
-                                      </div>
-                                      <div class="tcb-product-info">
-                                          <div class="tcb-product-title">
-                                              <h4><a href="#">Antonio De Paz Jr else if</a></h4></div>
-                                          <div class="tcb-product-rating">
-                                             <p>Instructor I</p>
-                                          </div>
-                                          <div class="tcb-hline"></div>
-                                          <div class="tcb-product-price text-right">
-                                              <a href="#"> <small>More Info</small> </a>
-                                              <a href="#" data-toggle="popover" title="Popover Header" data-content="Some content inside the popover">Toggle popover</a>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
+                                  <div class="col-xs-6 col-sm-4">
+                                    <div class="tcb-product-item">
+                                        <div class="tcb-product-photo">
+                                            <a href="#"><img src="{{ empty($value->photo)?asset('img/emptyprofile.png'):asset('storage/images/'.$value->photo)}}" class="img-responsive" alt="a" /></a>
+                                        </div>
+                                        <div class="tcb-product-info">
+                                            <div class="tcb-product-title">
+                                                <h4><a href="#"> <b> {{ $value->firstname." ".$value->middlename." ".$value->lastname }}</b></a></h4></div>
+                                            <div class="tcb-product-rating">
+                                              <p style="color: #000;" >{{ empty($value->Designation)?'':$value->Designation['name'] }} </p>
+                                            </div>
+                                            <div class="tcb-hline"></div>
+                                            <div class="tcb-product-price text-right">
+                                                <a href="#" class="moreinfo" data-id="{{$value->id}}"> <small>More Info</small> </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                               @endif
                               @endforeach
                           </div>
                           @endif
-
-
-
-
-
-
-
-                  </div>
-
-                  
-
-                 
-                   
+                  </div> 
                 </div>
                 <!-- Controls -->
                 <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                    {{-- <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> --}}
+                    <i class="arrow_left"></i>
                     <span class="sr-only">Previous</span>
                 </a>
                 <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                    {{-- <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> --}}
+                    <i class="arrow_right"></i>
                     <span class="sr-only">Next</span>
                 </a>
             </div>
+
+         
         </div>
+
     </div>
+
+    </div>
+    
+  </div>
 
 
     </div>
   </div>
 
 
-  <div class="modal fade" id="AccountModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal fade" id="MyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+          <h5 class="modal-title" id="exampleModalLongTitle">Faculty Information</h5>
         </div>
         <div class="modal-body">
-          ...
+          <div class="row">
+            <div class="col-md-4 text-right">
+                <p>Name</p>
+            </div>
+            <div class="col-md-1"> <b>:</b> </div>
+            <div class="col-md-7">
+              <p class="name">  </p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4 text-right">
+                <p>Gender</p>
+            </div>
+            <div class="col-md-1"> <b>:</b> </div>
+            <div class="col-md-7">
+              <p class="sex">  </p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4 text-right">
+                <p>Designation</p>
+            </div>
+            <div class="col-md-1"> <b>:</b> </div>
+            <div class="col-md-7">
+              <p class="designation"> </p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4 text-right">
+              <p>Expertise</p>
+            </div>
+            <div class="col-md-1"> <b>:</b> </div>
+            <div class="col-md-7">
+              <ul class="expertise">
+              </ul>
+            </div>
+          </div>
         </div>
+       
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
@@ -282,6 +300,55 @@
         $('#AccountModal').modal('show');
 
      })
+
+
+         $(document).on("click", ".moreinfo" , function(e) {
+              e.preventDefault();
+               const id = $(this).data('id')
+               $('.name').html('')
+              $('.sex').html('')
+                $('.designation').html('')
+                $('.expertise').html('')
+                     $.ajax({
+                              url: '/dean/one',
+                              type: 'post',
+                              data: {
+                                    id
+                                },
+                              dataType: 'json',
+                              beforeSend:function(){
+                                // $('.loading-select').html('<i class="spinner-border spinner-border-sm"></i> Loading... ');
+                              },
+                              success:function(result){
+                                console.log(result);
+                                $('#MyModal').modal('show');
+
+                                  // console.log('res: ', result);
+                                  if(result.status == 200){
+                                   // $('#employee-table').DataTable().ajax.reload();
+                                     // toastr.success(result.message)
+                                     $('.name').html('<b>'+result.data.firstname+' '+(result.data.middlename?result.data.middlename:'')+' '+result.data.lastname+'</b>')
+                                     $('.sex').html('<b>'+result.data.sex+'</b>')
+                                     $('.designation').html('<b>'+(result.data.designation?result.data.designation.name:'')+'</b>')
+
+                                     if(result.expert){
+                                        result.expert.forEach(element => {
+                                          $('.expertise').append('<li>'+element.description+'</li>')
+                                        });
+                                     }
+                                    
+                                  }
+                                  // else{
+                                  //   //toastr.error('Error: Please try again!')
+
+                                  // }
+                              }
+                            })
+
+
+         })
+
+     
             $('#employee-table').DataTable({
                 processing: true,
                 //info: true,

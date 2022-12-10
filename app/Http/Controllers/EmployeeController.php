@@ -175,8 +175,24 @@ class EmployeeController extends Controller
        ]);
    }
 
-   public function savelogs(Request $request){
+   public function one(Request $request)
+   {
+       $result = Faculty::find($request->id);
+       $expert = Expertise::where('empId',$request->id)->get();
+       if($result){
+           return response()->json([
+               'status' => 200,
+               'data' =>  $result ,
+               'expert' => $expert
+           ]);
+       }
+       return response()->json([
+           'status' => 400,
+           'message' => 'No record found',
+       ]);
+   }
 
+   public function savelogs(Request $request){
     $type = $request->type;
     $fId = session('facultyId');
     $typeOn = array("meeting", "leave", "travel");
@@ -194,7 +210,9 @@ class EmployeeController extends Controller
             $found->timein = null;
             $found->timeout = null;
             $found->status = 'ON '.strtoupper($type);
-            $found->remarks = $request->from." - ".$request->to;
+            $found->remarks = $request->from." - ".$request->to;//(empty($request->from)?'':date('F m, Y', strtotime($request->from))) ." - ".(empty($request->to)?'':date('F m, Y', strtotime($request->to)));
+            $found->fromdate = $request->from;
+            $found->todate = $request->to;
         }
        // $found->fId = $fId;
         $found->update();
@@ -206,7 +224,9 @@ class EmployeeController extends Controller
             $save->timeout = Carbon::now(); 
         }else if(in_array($type, $typeOn)){
             $found->status = 'ON '.strtoupper($type);
-            $found->remarks = $request->from." - ".$request->to;
+            $found->remarks = $request->from." - ".$request->to;//(empty($request->from)?'':date('D m Y', strtotime($request->from))) ." - ".(empty($request->to)?'':date('D m Y', strtotime($request->to)));
+            $found->fromdate = $request->from;
+            $found->todate = $request->to;
         }
         $save->fId = $fId;
         $save->save();
@@ -219,6 +239,7 @@ class EmployeeController extends Controller
 
    public function showlogs(){
     $fId = session('facultyId');
+    
     $found = Schedule::where('fId',$fId)->first();
     if($found){
         return response()->json([
