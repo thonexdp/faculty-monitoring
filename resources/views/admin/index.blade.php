@@ -55,7 +55,7 @@
     }
     .tcb-product-price {
       color: firebrick;
-      font-size: 18px;
+      font-size: 12px;
     }
 
 
@@ -115,7 +115,7 @@
                                         </div>
                                         <div class="tcb-hline"></div>
                                         <div class="tcb-product-price text-right">
-                                            <a href="#"> <small>More Info</small> </a>
+                                            <a href="#" class="moreinfo" data-id="{{$value->id}}"> <small>More Info</small> </a>
                                         </div>
                                     </div>
                                 </div>
@@ -143,7 +143,7 @@
                                       </div>
                                       <div class="tcb-hline"></div>
                                       <div class="tcb-product-price text-right">
-                                          <a href="#"> <small>More Info</small> </a>
+                                          <a href="#" class="moreinfo" data-id="{{$value->id}}"> <small>More Info</small> </a>
                                       </div>
                                   </div>
                               </div>
@@ -170,7 +170,7 @@
                                         </div>
                                         <div class="tcb-hline"></div>
                                         <div class="tcb-product-price text-right">
-                                            <a href="#"> <small>More Info</small> </a>
+                                            <a href="#" class="moreinfo" data-id="{{$value->id}}"> <small>More Info</small> </a>
                                         </div>
                                     </div>
                                 </div>
@@ -197,7 +197,7 @@
                                             </div>
                                             <div class="tcb-hline"></div>
                                             <div class="tcb-product-price text-right">
-                                                <a href="#"> <small>More Info</small> </a>
+                                                <a href="#" class="moreinfo" data-id="{{$value->id}}"> <small>More Info</small> </a>
                                             </div>
                                         </div>
                                     </div>
@@ -208,10 +208,119 @@
                           @endif
 
 
+                          @if($countIndex > 12)
+                          <div class="item">
+                            <div class="row">
+                              @foreach ($faculty as $key => $value)
+                              @if($key >= 12)
+                                    <div class="col-xs-6 col-sm-4">
+                                      <div class="tcb-product-item">
+                                          <div class="tcb-product-photo">
+                                              <a href="#"><img src="{{ empty($value->photo)?asset('img/emptyprofile.png'):asset('storage/images/'.$value->photo)}}" class="img-responsive" alt="a" /></a>
+                                          </div>
+                                          <div class="tcb-product-info">
+                                              <div class="tcb-product-title">
+                                                  <h4><a href="#"> <b> {{ $value->firstname." ".$value->middlename." ".$value->lastname }}</b></a></h4></div>
+                                              <div class="tcb-product-rating">
+                                                <p style="color: #000;" >{{ empty($value->Designation)?'':$value->Designation['name'] }} </p>
+                                              </div>
+                                              <div class="tcb-hline"></div>
+                                              <div class="tcb-product-price text-right">
+                                                  <a href="#" class="moreinfo" data-id="{{$value->id}}"> <small>More Info</small> </a>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                                @endif
+                                @endforeach
+                            </div>
+                            @endif
 
 
+                            @if($countIndex > 15)
+                            <div class="item">
+                              <div class="row">
+                                @foreach ($faculty as $key => $value)
+                                @if($key >= 15)
+                                      <div class="col-xs-6 col-sm-4">
+                                        <div class="tcb-product-item">
+                                            <div class="tcb-product-photo">
+                                                <a href="#"><img src="{{ empty($value->photo)?asset('img/emptyprofile.png'):asset('storage/images/'.$value->photo)}}" class="img-responsive" alt="a" /></a>
+                                            </div>
+                                            <div class="tcb-product-info">
+                                                <div class="tcb-product-title">
+                                                    <h4><a href="#"> <b> {{ $value->firstname." ".$value->middlename." ".$value->lastname }}</b></a></h4></div>
+                                                <div class="tcb-product-rating">
+                                                  <p style="color: #000;" >{{ empty($value->Designation)?'':$value->Designation['name'] }} </p>
+                                                </div>
+                                                <div class="tcb-hline"></div>
+                                                <div class="tcb-product-price text-right">
+                                                    <a href="#" class="moreinfo" data-id="{{$value->id}}"> <small>More Info</small> </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  @endif
+                                  @endforeach
+                              </div>
+                              @endif
+
+                              @if($countIndex > 18)
+                              <div class="item">
+                                <div class="row">
+                                  @foreach ($faculty as $key => $value)
+                                  @if($key >= 18)
+                                        <div class="col-xs-6 col-sm-4">
+                                          <div class="tcb-product-item">
+                                              <div class="tcb-product-photo">
+                                                  <a href="#"><img src="{{ empty($value->photo)?asset('img/emptyprofile.png'):asset('storage/images/'.$value->photo)}}" class="img-responsive" alt="a" /></a>
+                                              </div>
+                                              <div class="tcb-product-info">
+                                                  <div class="tcb-product-title">
+                                                      <h4><a href="#"> <b> {{ $value->firstname." ".$value->middlename." ".$value->lastname }}</b></a></h4></div>
+                                                  <div class="tcb-product-rating">
+                                                    <p style="color: #000;" >{{ empty($value->Designation)?'':$value->Designation['name'] }} </p>
+                                                  </div>
+                                                  <div class="tcb-hline"></div>
+                                                  <div class="tcb-product-price text-right">
+                                                      <a href="#" class="moreinfo" data-id="{{$value->id}}"> <small>More Info</small> </a>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                    @endif
+                                    @endforeach
+                                </div>
+                                @endif
 
 
+                                @if($countIndex > 21)
+                                <div class="item">
+                                  <div class="row">
+                                    @foreach ($faculty as $key => $value)
+                                    @if($key >= 21)
+                                          <div class="col-xs-6 col-sm-4">
+                                            <div class="tcb-product-item">
+                                                <div class="tcb-product-photo">
+                                                    <a href="#"><img src="{{ empty($value->photo)?asset('img/emptyprofile.png'):asset('storage/images/'.$value->photo)}}" class="img-responsive" alt="a" /></a>
+                                                </div>
+                                                <div class="tcb-product-info">
+                                                    <div class="tcb-product-title">
+                                                        <h4><a href="#"> <b> {{ $value->firstname." ".$value->middlename." ".$value->lastname }}</b></a></h4></div>
+                                                    <div class="tcb-product-rating">
+                                                      <p style="color: #000;" >{{ empty($value->Designation)?'':$value->Designation['name'] }} </p>
+                                                    </div>
+                                                    <div class="tcb-hline"></div>
+                                                    <div class="tcb-product-price text-right">
+                                                        <a href="#" class="moreinfo" data-id="{{$value->id}}"> <small>More Info</small> </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                      @endif
+                                      @endforeach
+                                  </div>
+                                  @endif
 
                   </div>
 
@@ -288,6 +397,58 @@
       </div>
     </div>
   </div>
+  <div class="modal fade" id="MyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Faculty Information</h5>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-4 text-right">
+                <p>Name</p>
+            </div>
+            <div class="col-md-1"> <b>:</b> </div>
+            <div class="col-md-7">
+              <p class="name">  </p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4 text-right">
+                <p>Gender</p>
+            </div>
+            <div class="col-md-1"> <b>:</b> </div>
+            <div class="col-md-7">
+              <p class="sex">  </p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4 text-right">
+                <p>Designation</p>
+            </div>
+            <div class="col-md-1"> <b>:</b> </div>
+            <div class="col-md-7">
+              <p class="designation"> </p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4 text-right">
+              <p>Expertise</p>
+            </div>
+            <div class="col-md-1"> <b>:</b> </div>
+            <div class="col-md-7">
+              <ul class="expertise">
+              </ul>
+            </div>
+          </div>
+        </div>
+       
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
    @include('include.scripts')
   <script>
 
@@ -309,6 +470,53 @@
 
     //       });
 
+
+    
+    $(document).on("click", ".moreinfo" , function(e) {
+              e.preventDefault();
+               const id = $(this).data('id')
+               $('.name').html('')
+              $('.sex').html('')
+                $('.designation').html('')
+                $('.expertise').html('')
+                     $.ajax({
+                              url: '/employee/one',
+                              type: 'post',
+                              data: {
+                                    id
+                                },
+                              dataType: 'json',
+                              beforeSend:function(){
+                                // $('.loading-select').html('<i class="spinner-border spinner-border-sm"></i> Loading... ');
+                              },
+                              success:function(result){
+                                console.log(result);
+                                $('#MyModal').modal('show');
+
+                                  // console.log('res: ', result);
+                                  if(result.status == 200){
+                                   // $('#employee-table').DataTable().ajax.reload();
+                                     // toastr.success(result.message)
+                                     $('.name').html('<b>'+result.data.firstname+' '+(result.data.middlename?result.data.middlename:'')+' '+result.data.lastname+'</b>')
+                                     $('.sex').html('<b>'+result.data.sex+'</b>')
+                                     $('.designation').html('<b>'+(result.data.designation?result.data.designation.name:'')+'</b>')
+
+                                     if(result.expert){
+                                        result.expert.forEach(element => {
+                                          $('.expertise').append('<li>'+element.description+'</li>')
+                                        });
+                                     }
+                                    
+                                  }
+                                  // else{
+                                  //   //toastr.error('Error: Please try again!')
+
+                                  // }
+                              }
+                            })
+
+
+         })
 
 
      $(document).on("click", ".add-account" , function(e) {
