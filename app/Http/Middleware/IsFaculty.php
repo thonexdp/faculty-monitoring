@@ -16,7 +16,7 @@ class IsFaculty
      */
     public function handle(Request $request, Closure $next)
     {
-        if(session('usertype') == 2){
+        if(session('usertype') == 3){
             return $next($request);
         }
         return redirect()->back();

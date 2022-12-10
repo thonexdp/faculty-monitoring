@@ -124,7 +124,7 @@
                                 <th scope="col">Time In</th>
                                 <th scope="col">Time Out</th>
                                 <th scope="col">Remarks</th>
-                                <th scope="col">Status</th>
+                                <th scope="col">Status <small> <i>(YYYY-MM-DD)</i> </small> </th>
                               </tr>
                             </thead>
                             <tbody class="tbodyrow">

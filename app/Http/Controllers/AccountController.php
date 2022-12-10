@@ -33,7 +33,7 @@ class AccountController extends Controller
                     ]);
                     if($isLogin->usertype == 1){
                         $url = 'dashboard';
-                    }else if($isLogin->usertype == 3){
+                    }else if($isLogin->usertype == 2){
                         $url = "dean";
                     }else{ $url = "faculty"; }
                     return response()->json(['status' => 200, 'url' => $url ]);
@@ -78,6 +78,34 @@ class AccountController extends Controller
        ->make(true);
    }
 
+   public function update(Request $request){
+        $validator = \Validator::make($request->all(), [
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'username' => 'required',
+        ]);
+        
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 400,
+                'message' => $validator->messages(),
+            ]);
+        }
+        $find = Account::find($request->id);
+        $find->firstname = $request->firstname;
+        $find->lastname = $request->lastname;
+        $find->username = $request->username;
+        if(!empty($request->password)){
+            $find->password = Hash::make($request->password);
+        }
+        $find->update();
+if($find){
+    return response()->json(['status' => 200, 'message' =>  'Update Success!']);
+
+}
+return response()->json(['status' => 401, 'message' =>  'Invalid User!']);
+
+   }
 
     public function logout()
     {
