@@ -8,7 +8,7 @@
       $role = '';
       if(session('usertype') == 1){
         $role = 'Admin';
-      }else if(session('usertype') == 2){
+      }else if(session('usertype') == 3){
         $role = 'Faculty';
       }else if(session('usertype') == 2){
         $role = 'Dean';
