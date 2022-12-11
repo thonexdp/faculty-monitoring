@@ -30,7 +30,7 @@ CREATE TABLE `account` (
   `photo` varchar(100) DEFAULT NULL,
   `facultyId` int(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `account` */
 
@@ -38,7 +38,10 @@ insert  into `account`(`id`,`firstname`,`lastname`,`username`,`password`,`userty
 (1,'admin','admin','admin','$2y$10$wMs4YPg.R51pRClv4PaXi.bY2.OBc2MsgakyKWozcVJmAmkauwFL2',1,NULL,NULL),
 (2,'Ana1','Vocal Jr.','dean','$2y$10$ibNGFfQw6cZRKWaj5YsqW.wjZzlscAgx0jpdzuRLii65vXHSiSu4y',2,'Vocal Jr._1670154309.jpg',5),
 (3,'Jane','Santos','1234','$2y$10$Fe3GaezStPa5KNkMlZ6P6uIjtHnBSDntQ3nzN6rcZtQsoYoFf/Np.',3,'Santos_1670154345.jpg',6),
-(4,'11','11','12345','$2y$10$L2OWygDYv9XY06J3LB5ri.oSwBqNjmsnQjICopCZiH0apywg59dxO',3,'11_1670639014.jpg',7);
+(4,'11','11','12345','$2y$10$L2OWygDYv9XY06J3LB5ri.oSwBqNjmsnQjICopCZiH0apywg59dxO',3,'11_1670639014.jpg',7),
+(5,'elmer','calo;pe','103645-1','$2y$10$ByG336Lz.NjWGR8jIqPtAOH9ldRzXIo5JSbusLRtUfqDQBR4OUGcG',3,'calo;pe_1670656665.jpg',8),
+(6,'Geraldine','Mangmang','123-1','$2y$10$0SqvO3cLSrzFR09BdmNUm.V61BZU9QFis6wNvqGWNMQ2RaAdExWB6',2,'Mangmang_1670657305.jpg',9),
+(7,'Jorton','Tagud','1234-5','$2y$10$s5NzYuryhfJKRXhcvDtzF.PJQsEi9frBH62msGdwCoORZ3Jr13Irq',3,'Tagud_1670658499.jpg',10);
 
 /*Table structure for table `designation` */
 
@@ -72,7 +75,7 @@ CREATE TABLE `expertise` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `type` int(2) DEFAULT NULL COMMENT '1=expertise 2=research',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `expertise` */
 
@@ -93,7 +96,12 @@ insert  into `expertise`(`id`,`empId`,`description`,`created_at`,`type`) values
 (26,6,'Programming','2022-12-04 19:45:46',1),
 (27,6,'UI Deisgnser','2022-12-04 19:45:46',1),
 (28,7,'1','2022-12-10 10:23:37',1),
-(29,7,'2','2022-12-10 10:23:38',1);
+(29,7,'2','2022-12-10 10:23:38',1),
+(31,10,'Programmer','2022-12-10 15:48:19',1),
+(32,10,'UI','2022-12-10 15:48:19',1),
+(36,8,'programer','2022-12-10 15:53:00',1),
+(37,8,'Designer III','2022-12-10 15:53:00',1),
+(38,8,'Programmer','2022-12-10 15:53:00',1);
 
 /*Table structure for table `faculty` */
 
@@ -111,7 +119,7 @@ CREATE TABLE `faculty` (
   `photo` varchar(200) DEFAULT NULL,
   `employeeId` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `faculty` */
 
@@ -120,7 +128,10 @@ insert  into `faculty`(`id`,`firstname`,`middlename`,`lastname`,`sex`,`designati
 (4,'JMEA333','Prose','Yepes','male',1,'2022-12-04 15:29:38',1,'Yepes_1670134790.jpg',NULL),
 (5,'Ana',NULL,'Vocal Jr.','female',3,'2022-12-04 19:45:10',1,'Vocal Jr._1670154309.jpg','123'),
 (6,'Jane',NULL,'Santos','female',3,'2022-12-04 19:45:45',1,'Santos_1670154345.jpg','1234'),
-(7,'11',NULL,'11','female',2,'2022-12-10 10:23:35',1,'11_1670639014.jpg','1');
+(7,'11',NULL,'11','female',2,'2022-12-10 10:23:35',1,'11_1670639014.jpg','1'),
+(8,'James Bryan',NULL,'Flores','male',5,'2022-12-10 15:53:00',1,'Flores_1670658697.jpg','103645-1'),
+(9,'Geraldine',NULL,'Mangmang','female',4,'2022-12-10 15:28:25',1,'Mangmang_1670657305.jpg','123-1'),
+(10,'Jorton',NULL,'Tagud','male',1,'2022-12-10 15:48:19',1,'Tagud_1670658499.jpg','1234-5');
 
 /*Table structure for table `schedule` */
 
@@ -136,14 +147,16 @@ CREATE TABLE `schedule` (
   `fromdate` varchar(50) DEFAULT NULL,
   `todate` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `schedule` */
 
 insert  into `schedule`(`id`,`timein`,`timeout`,`status`,`remarks`,`fId`,`fromdate`,`todate`) values 
 (3,'2022-12-10 02:14:01','2022-12-11 01:55:04',NULL,NULL,5,'2022-12-11','2022-12-12'),
 (4,NULL,NULL,'ON LEAVE','2022-12-11 - 2022-12-13',7,'2022-12-11','2022-12-13'),
-(5,'2022-12-10 05:37:07',NULL,NULL,NULL,6,NULL,NULL);
+(5,'2022-12-10 05:37:07',NULL,NULL,NULL,6,NULL,NULL),
+(6,'2022-12-10 07:19:36',NULL,NULL,NULL,8,NULL,NULL),
+(7,NULL,NULL,'ON TRAVEL','2022-12-09 - 2022-12-23',10,'2022-12-09','2022-12-23');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
