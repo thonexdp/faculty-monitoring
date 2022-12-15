@@ -16,7 +16,7 @@ class IsDean
      */
     public function handle(Request $request, Closure $next)
     {
-        if(session('usertype') == 3){
+        if(session('usertype') == 2){
             return $next($request);
         }
         return redirect()->back();
