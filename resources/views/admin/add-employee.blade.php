@@ -74,13 +74,13 @@
               </div>
               <div class="col-md-5">
                 <div class="form-group ">
-                  <label for="address" class="control-label col-md-3">Designation <span class="required">*</span></label>
+                  <label for="address" class="control-label col-md-3">Item Name <span class="required">*</span></label>
                   <div class="col-md-9">
-                    <select name="designation" class="form-control">
-                      <option value="" selected disabled>--Select Designation--</option>
-                      @if($designation)
-                        @foreach($designation as $item)
-                          <option value="{{$item->id}}" {{ empty($faculty->designation)?'':($faculty->designation==$item->id?'selected':'') }} > {{ $item->name }} </option>
+                    <select name="itemname" class="form-control">
+                      <option value="" selected disabled>--Select ItemName--</option>
+                      @if($itemname)
+                        @foreach($itemname as $item)
+                          <option value="{{$item->id}}" {{ empty($faculty->itemname)?'':($faculty->itemname==$item->id?'selected':'') }} > {{ $item->name }} </option>
                         @endforeach
                       @endif
                     </select>
@@ -106,6 +106,21 @@
                   </div>
               </div>
               <div class="col-md-8">
+                <div class="col-12">
+                  <div class="form-group ">
+                    <label for="address" class="control-label col-md-3">Designation <span class="required">*</span></label>
+                    <div class="col-md-9">
+                      <select name="designation" class="form-control">
+                        <option value="" selected disabled>--Select Designation--</option>
+                        @if($designation)
+                          @foreach($designation as $item)
+                            <option value="{{$item->id}}" {{ empty($faculty->designation)?'':($faculty->designation==$item->id?'selected':'') }} > {{ $item->name }} </option>
+                          @endforeach
+                        @endif
+                      </select>
+                    </div>
+                  </div>
+                </div>
                 <div class="col-md-12">
                   <hr>
                   <h4>Expertise</h4>
