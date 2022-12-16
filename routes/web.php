@@ -4,6 +4,7 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DesignationController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\ItemNameController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -67,6 +68,15 @@ Route::group(['prefix' => 'designation', 'middleware' => ['admin']], function() 
     Route::post('/save', [DesignationController::class, 'store']);
     Route::post('/edit', [DesignationController::class, 'edit']);
     Route::post('/delete', [DesignationController::class, 'destroy']);
+    
+});
+
+Route::group(['prefix' => 'itemname', 'middleware' => ['admin']], function() {
+    Route::get('/', [ItemNameController::class, 'index']);
+    Route::post('/show', [ItemNameController::class, 'show']);
+    Route::post('/save', [ItemNameController::class, 'store']);
+    Route::post('/edit', [ItemNameController::class, 'edit']);
+    Route::post('/delete', [ItemNameController::class, 'destroy']);
     
 });
 

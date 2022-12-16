@@ -97,12 +97,20 @@
             <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner" role="listbox" style="margin-top: -90px;">
-                  <?php $countIndex = count($faculty); ?>
+                  <?php $countIndex = count($faculty);
+                        $countValue = 0;
+                  ?>
                     <div class="item active">
                         <div class="row">
                           @foreach ($faculty as $key => $value)
+
+                        {{--  <?php // $countValue++; ?>
+                           @if($key < 3)
+                          @if($countValue <= 3)  --}}
+
                           {{-- @if($key < 3) --}}
                           @if ($key >= 0 && $key <= 2)
+
                             <div class="col-xs-6 col-sm-4">
                                 <div class="tcb-product-item">
                                     <div class="tcb-product-photo">
@@ -122,19 +130,25 @@
                                 </div>
                             </div>
                             @endif
-
                             @endforeach
                         </div>
                       </div>
 
 
-
-                   @if($countIndex > 3)
+                   {{-- @if($countIndex > 3) --}}
+                   @if($countValue >= 3)
                     <div class="item">
                       <div class="row">
                         @foreach ($faculty as $key => $value)
+
+                        {{--  <?php  $countValue++; ?>
+                       @if($key < 3) 
+                       @if($countValue <= 5)
+                           @if($key > 3)
+ --}}
                            {{-- @if($key > 4) --}}
                            @if ($key >= 3 && $key <= 5)
+
                             <div class="col-xs-6 col-sm-4">
                               <div class="tcb-product-item">
                                   <div class="tcb-product-photo">
@@ -158,8 +172,6 @@
                       </div>
                     </div>
                       @endif
-                     
-
                       @if($countIndex > 6)
                       <div class="item">
                         <div class="row">
@@ -385,20 +397,9 @@
 
 
 
-
-
-
-
-
-
-
+                      
                        
-                  </div>
-
-                  
-
-                 
-                   
+                  </div>  
                 </div>
                 <!-- Controls -->
                 <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">

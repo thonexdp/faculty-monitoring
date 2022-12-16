@@ -6,6 +6,7 @@ use App\Models\Designation;
 use App\Models\Expertise;
 use App\Models\Faculty;
 use App\Models\Account;
+use App\Models\ItemName;
 use App\Models\Schedule;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -33,9 +34,10 @@ class EmployeeController extends Controller
     public function add(Request $request){
         $id = empty($request->id)?'':base64_decode($request->id);
         $designation  = Designation::all();
+        $itemname  = ItemName::all();
         $faculty = Faculty::find($id);
         $expertise = Expertise::where('empId', $id)->get();
-        return view('admin.add-employee' , compact('designation','faculty','expertise'));
+        return view('admin.add-employee' , compact('designation','faculty','expertise','itemname'));
     }
     
     public function store(Request $request)
@@ -46,7 +48,7 @@ class EmployeeController extends Controller
         $validator = Validator::make($request->all(), [
             'firstname' => 'required',
             'lastname' => 'required',
-            'designation' => 'required',
+            'itemname' => 'required',
             'employeeId' => 'unique:faculty,employeeId,' . $request->id,
         ]);
         
@@ -75,6 +77,7 @@ class EmployeeController extends Controller
             $save->lastname = $request->lastname;
             $save->sex = $request->sex;
             $save->designation = $request->designation;
+            $save->itemname = $request->itemname;
             $save->employeeId = $request->employeeId;
             if( $imgCheck){
                 $save->photo = $path;
@@ -100,6 +103,7 @@ class EmployeeController extends Controller
             $save->lastname = $request->lastname;
             $save->sex = $request->sex;
             $save->designation = $request->designation;
+            $save->itemname = $request->itemname;
             $save->employeeId = $request->employeeId;
             if( $imgCheck){
                 $save->photo =  $path;
@@ -144,6 +148,7 @@ class EmployeeController extends Controller
                     'lastname'  => $value['lastname'],
                     'empno'  =>  $value['employeeId'],
                     'sex'  =>  strtoupper($value['sex']),
+                    'itemname'  => empty($value['ItemName'])?'':$value['ItemName']['name'],
                     'designation'  => empty($value['Designation'])?'':$value['Designation']['name'],
                     'action'  => ' <div class="btn-group" role="group">
                             <button type="button" class="btn btn-outline-light btn-sm btn-delete-employee" data-id="'.$value['id'].'">delete</button>

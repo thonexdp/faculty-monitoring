@@ -21,6 +21,12 @@
                         <span>Designation</span>
                     </a>
         </li>
+        <li class="{{ request()->is('itemname') ? 'active' : ''}}">
+          <a class="" href="/itemname">
+                        <i class="icon_genius"></i>
+                        <span>ItemName</span>
+                    </a>
+        </li>
         <li class="{{ request()->is('account') ? 'active' : ''}}">
           <a class="" href="/account">
                         <i class="icon_genius"></i>

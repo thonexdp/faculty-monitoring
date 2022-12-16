@@ -27,8 +27,8 @@
  
 </head>
 
-<body class="login-img-bodysdf">
-  <div class="container">
+<body class="login-img-bodysdf" style='background-image: url("storage/logo.png"); background-color: rgba(255, 0, 0, 0.5) '>
+  <div class="container"  >
     <form class="login-form" id="loginform">
       <div class="login-wrap">
         <p class="login-img"><i class="icon_lock_alt"></i></p>
