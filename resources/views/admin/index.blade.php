@@ -103,9 +103,14 @@
                     <div class="item active">
                         <div class="row">
                           @foreach ($faculty as $key => $value)
-                          <?php  $countValue++; ?>
+
+                        {{--  <?php // $countValue++; ?>
+                           @if($key < 3)
+                          @if($countValue <= 3)  --}}
+
                           {{-- @if($key < 3) --}}
-                          @if($countValue <= 3)
+                          @if ($key >= 0 && $key <= 2)
+
                             <div class="col-xs-6 col-sm-4">
                                 <div class="tcb-product-item">
                                     <div class="tcb-product-photo">
@@ -135,10 +140,15 @@
                     <div class="item">
                       <div class="row">
                         @foreach ($faculty as $key => $value)
-                        <?php  $countValue++; ?>
-                        {{-- @if($key < 3) --}}
-                        {{-- @if($countValue <= 5) --}}
+
+                        {{--  <?php  $countValue++; ?>
+                       @if($key < 3) 
+                       @if($countValue <= 5)
                            @if($key > 3)
+ --}}
+                           {{-- @if($key > 4) --}}
+                           @if ($key >= 3 && $key <= 5)
+
                             <div class="col-xs-6 col-sm-4">
                               <div class="tcb-product-item">
                                   <div class="tcb-product-photo">
@@ -162,19 +172,12 @@
                       </div>
                     </div>
                       @endif
-                     
-
-
-
-
-                      @if($countValue >= 6)
+                      @if($countIndex > 6)
                       <div class="item">
                         <div class="row">
                           @foreach ($faculty as $key => $value)
-                          <?php  $countValue++; ?>
-                          {{-- @if($key < 3) --}}
-                          {{-- @if($countValue <= 5) --}}
-                             @if($key > 6)
+                             {{-- @if($key > 4) --}}
+                             @if ($key >= 6 && $key <= 8)
                               <div class="col-xs-6 col-sm-4">
                                 <div class="tcb-product-item">
                                     <div class="tcb-product-photo">
@@ -198,6 +201,200 @@
                         </div>
                       </div>
                         @endif
+
+
+                        @if($countIndex > 9)
+                        <div class="item">
+                          <div class="row">
+                            @foreach ($faculty as $key => $value)
+                               {{-- @if($key > 4) --}}
+                               @if ($key >= 9 && $key <= 11)
+                                <div class="col-xs-6 col-sm-4">
+                                  <div class="tcb-product-item">
+                                      <div class="tcb-product-photo">
+                                          <a href="#"><img src="{{ empty($value->photo)?asset('img/emptyprofile.png'):asset('storage/images/'.$value->photo)}}" class="img-responsive" alt="a" /></a>
+                                      </div>
+                                      <div class="tcb-product-info">
+                                          <div class="tcb-product-title">
+                                              <h4><a href="#"> <b> {{ $value->firstname." ".$value->middlename." ".$value->lastname }}</b></a></h4></div>
+                                          <div class="tcb-product-rating">
+                                            <p style="color: #000;" >{{ empty($value->Designation)?'':$value->Designation['name'] }} </p>
+                                          </div>
+                                          <div class="tcb-hline"></div>
+                                          <div class="tcb-product-price text-right">
+                                              <a href="#" class="moreinfo" data-id="{{$value->id}}"> <small>More Info</small> </a>
+                                          </div>
+                                      </div>
+                                  </div>
+                               </div>
+                              @endif
+                              @endforeach
+                          </div>
+                        </div>
+                          @endif
+
+
+                          
+                        @if($countIndex > 12)
+                        <div class="item">
+                          <div class="row">
+                            @foreach ($faculty as $key => $value)
+                               {{-- @if($key > 4) --}}
+                               @if ($key >= 12 && $key <= 14)
+                                <div class="col-xs-6 col-sm-4">
+                                  <div class="tcb-product-item">
+                                      <div class="tcb-product-photo">
+                                          <a href="#"><img src="{{ empty($value->photo)?asset('img/emptyprofile.png'):asset('storage/images/'.$value->photo)}}" class="img-responsive" alt="a" /></a>
+                                      </div>
+                                      <div class="tcb-product-info">
+                                          <div class="tcb-product-title">
+                                              <h4><a href="#"> <b> {{ $value->firstname." ".$value->middlename." ".$value->lastname }}</b></a></h4></div>
+                                          <div class="tcb-product-rating">
+                                            <p style="color: #000;" >{{ empty($value->Designation)?'':$value->Designation['name'] }} </p>
+                                          </div>
+                                          <div class="tcb-hline"></div>
+                                          <div class="tcb-product-price text-right">
+                                              <a href="#" class="moreinfo" data-id="{{$value->id}}"> <small>More Info</small> </a>
+                                          </div>
+                                      </div>
+                                  </div>
+                               </div>
+                              @endif
+                              @endforeach
+                          </div>
+                        </div>
+                          @endif
+
+
+                          @if($countIndex > 15)
+                          <div class="item">
+                            <div class="row">
+                              @foreach ($faculty as $key => $value)
+                                 {{-- @if($key > 4) --}}
+                                 @if ($key >= 15 && $key <= 17)
+                                  <div class="col-xs-6 col-sm-4">
+                                    <div class="tcb-product-item">
+                                        <div class="tcb-product-photo">
+                                            <a href="#"><img src="{{ empty($value->photo)?asset('img/emptyprofile.png'):asset('storage/images/'.$value->photo)}}" class="img-responsive" alt="a" /></a>
+                                        </div>
+                                        <div class="tcb-product-info">
+                                            <div class="tcb-product-title">
+                                                <h4><a href="#"> <b> {{ $value->firstname." ".$value->middlename." ".$value->lastname }}</b></a></h4></div>
+                                            <div class="tcb-product-rating">
+                                              <p style="color: #000;" >{{ empty($value->Designation)?'':$value->Designation['name'] }} </p>
+                                            </div>
+                                            <div class="tcb-hline"></div>
+                                            <div class="tcb-product-price text-right">
+                                                <a href="#" class="moreinfo" data-id="{{$value->id}}"> <small>More Info</small> </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                 </div>
+                                @endif
+                                @endforeach
+                            </div>
+                          </div>
+                            @endif
+
+
+                            
+                          @if($countIndex > 18)
+                          <div class="item">
+                            <div class="row">
+                              @foreach ($faculty as $key => $value)
+                                 {{-- @if($key > 4) --}}
+                                 @if ($key >= 18 && $key <= 20)
+                                  <div class="col-xs-6 col-sm-4">
+                                    <div class="tcb-product-item">
+                                        <div class="tcb-product-photo">
+                                            <a href="#"><img src="{{ empty($value->photo)?asset('img/emptyprofile.png'):asset('storage/images/'.$value->photo)}}" class="img-responsive" alt="a" /></a>
+                                        </div>
+                                        <div class="tcb-product-info">
+                                            <div class="tcb-product-title">
+                                                <h4><a href="#"> <b> {{ $value->firstname." ".$value->middlename." ".$value->lastname }}</b></a></h4></div>
+                                            <div class="tcb-product-rating">
+                                              <p style="color: #000;" >{{ empty($value->Designation)?'':$value->Designation['name'] }} </p>
+                                            </div>
+                                            <div class="tcb-hline"></div>
+                                            <div class="tcb-product-price text-right">
+                                                <a href="#" class="moreinfo" data-id="{{$value->id}}"> <small>More Info</small> </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                 </div>
+                                @endif
+                                @endforeach
+                            </div>
+                          </div>
+                            @endif
+
+
+
+                            @if($countIndex > 21)
+                            <div class="item">
+                              <div class="row">
+                                @foreach ($faculty as $key => $value)
+                                   {{-- @if($key > 4) --}}
+                                   @if ($key >= 21 && $key <= 23)
+                                    <div class="col-xs-6 col-sm-4">
+                                      <div class="tcb-product-item">
+                                          <div class="tcb-product-photo">
+                                              <a href="#"><img src="{{ empty($value->photo)?asset('img/emptyprofile.png'):asset('storage/images/'.$value->photo)}}" class="img-responsive" alt="a" /></a>
+                                          </div>
+                                          <div class="tcb-product-info">
+                                              <div class="tcb-product-title">
+                                                  <h4><a href="#"> <b> {{ $value->firstname." ".$value->middlename." ".$value->lastname }}</b></a></h4></div>
+                                              <div class="tcb-product-rating">
+                                                <p style="color: #000;" >{{ empty($value->Designation)?'':$value->Designation['name'] }} </p>
+                                              </div>
+                                              <div class="tcb-hline"></div>
+                                              <div class="tcb-product-price text-right">
+                                                  <a href="#" class="moreinfo" data-id="{{$value->id}}"> <small>More Info</small> </a>
+                                              </div>
+                                          </div>
+                                      </div>
+                                   </div>
+                                  @endif
+                                  @endforeach
+                              </div>
+                            </div>
+                              @endif
+
+
+                              
+                            @if($countIndex > 24)
+                            <div class="item">
+                              <div class="row">
+                                @foreach ($faculty as $key => $value)
+                                   {{-- @if($key > 4) --}}
+                                   @if ($key >= 24 && $key <= 26)
+                                    <div class="col-xs-6 col-sm-4">
+                                      <div class="tcb-product-item">
+                                          <div class="tcb-product-photo">
+                                              <a href="#"><img src="{{ empty($value->photo)?asset('img/emptyprofile.png'):asset('storage/images/'.$value->photo)}}" class="img-responsive" alt="a" /></a>
+                                          </div>
+                                          <div class="tcb-product-info">
+                                              <div class="tcb-product-title">
+                                                  <h4><a href="#"> <b> {{ $value->firstname." ".$value->middlename." ".$value->lastname }}</b></a></h4></div>
+                                              <div class="tcb-product-rating">
+                                                <p style="color: #000;" >{{ empty($value->Designation)?'':$value->Designation['name'] }} </p>
+                                              </div>
+                                              <div class="tcb-hline"></div>
+                                              <div class="tcb-product-price text-right">
+                                                  <a href="#" class="moreinfo" data-id="{{$value->id}}"> <small>More Info</small> </a>
+                                              </div>
+                                          </div>
+                                      </div>
+                                   </div>
+                                  @endif
+                                  @endforeach
+                              </div>
+                            </div>
+                              @endif
+                         
+                         
+                       
+
 
 
                       
