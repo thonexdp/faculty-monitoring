@@ -29,7 +29,8 @@ class EmployeeController extends Controller
     }
      public function indexD(){
         $faculty = Faculty::all();
-        return view('dean.index', compact('faculty'));
+        $expertise = Expertise::all();
+        return view('dean.index', compact('faculty','expertise'));
     }
     public function add(Request $request){
         $id = empty($request->id)?'':base64_decode($request->id);
@@ -90,7 +91,7 @@ class EmployeeController extends Controller
             $savea->username = $save->employeeId;
             $savea->password = \Hash::make('12345');
             $savea->facultyId = $save->id;
-            $savea->usertype = $request->designation==4?2:3;
+            $savea->usertype = $request->itemname==4?2:3;
             if( $imgCheck){
                 $savea->photo = $path;
             }
@@ -212,10 +213,16 @@ class EmployeeController extends Controller
             $found->status = null;
             $found->remarks = null;
         }else if(in_array($type, $typeOn)){
+            $remarksz = '';
+            if($type == 'meeting'){
+                $remarksz  = empty($request->from)?'':date("g:i a", strtotime($request->from))." - ".(empty($request->to)?'':date("g:i a", strtotime($request->to)) );
+            }else{
+                $remarksz  = $request->from." - ".$request->to;
+            }
             $found->timein = null;
             $found->timeout = null;
             $found->status = 'ON '.strtoupper($type);
-            $found->remarks = $request->from." - ".$request->to;//(empty($request->from)?'':date('F m, Y', strtotime($request->from))) ." - ".(empty($request->to)?'':date('F m, Y', strtotime($request->to)));
+            $found->remarks = $remarksz;//(empty($request->from)?'':date('F m, Y', strtotime($request->from))) ." - ".(empty($request->to)?'':date('F m, Y', strtotime($request->to)));
             $found->fromdate = $request->from;
             $found->todate = $request->to;
         }
@@ -228,8 +235,14 @@ class EmployeeController extends Controller
         }else if($type == 'out'){
             $save->timeout = Carbon::now(); 
         }else if(in_array($type, $typeOn)){
+            $remarksz = '';
+            if($type == 'meeting'){
+                $remarksz  = empty($request->from)?'':date("g:i a", strtotime($request->from))." - ".(empty($request->to)?'':date("g:i a", strtotime($request->to)) );
+            }else{
+                $remarksz  = $request->from." - ".$request->to;
+            }
             $found->status = 'ON '.strtoupper($type);
-            $found->remarks = $request->from." - ".$request->to;//(empty($request->from)?'':date('D m Y', strtotime($request->from))) ." - ".(empty($request->to)?'':date('D m Y', strtotime($request->to)));
+            $found->remarks = $remarksz;//(empty($request->from)?'':date('D m Y', strtotime($request->from))) ." - ".(empty($request->to)?'':date('D m Y', strtotime($request->to)));
             $found->fromdate = $request->from;
             $found->todate = $request->to;
         }
@@ -242,10 +255,100 @@ class EmployeeController extends Controller
     ]);
    }
 
+
+   
+
+   public function showlogsall(){
+  
+    
+    //$found = Schedule::where('fId',$fId)->first();
+
+    $dataResult = new Collection();
+    
+    $datas = Schedule::all();
+if(sizeof($datas) > 0){
+    foreach($datas as $data){
+        if($data->status == 'ON LEAVE' or $data->status == 'ON TRAVEL'){
+            $datenow = date('Y-m-d');
+            $datas3 = Schedule::select("schedule.*")                
+                    ->whereRaw('? between fromdate and todate', $datenow)
+                    ->get();
+                   // dd($datas3);
+                    foreach($datas3 as $data3){
+                        if(!$dataResult->contains('id', $data3->id)){
+                             $name = Faculty::find($data3->fId);
+                             if(!empty($data3->status)){
+                                $dataResult->push([
+                                    'id' => $data3->id,
+                                    'name' => $name->firstname." ".$name->middlename." ".$name->lastname,
+                                    'timein' => $data3->timein,
+                                    'timeout' => $data3->timeout,
+                                    'status' => $data3->status,
+                                    'remarks' => $data3->remarks,
+                                ]);
+                          }
+                        }
+                       
+                    }
+        }else{
+            $datas2 = Schedule::whereDate('updated_at', Carbon::today())->get();
+          //  dd( $datas2);
+          
+            foreach($datas2 as $data2){
+                if(!$dataResult->contains('id', $data2->id)){
+                    $name = Faculty::find($data2->fId);
+                    if(empty($datas2->status)){
+                        $dataResult->push([
+                            'id' => $data2->id,
+                            'name' => $name->firstname." ".$name->middlename." ".$name->lastname,
+                            'timein' => $data2->timein,
+                            'timeout' => $data2->timeout,
+                            'status' => $data2->status,
+                            'remarks' => $data2->remarks,
+                        ]);
+                    }
+                   
+                }
+            }
+            // return response()->json([
+            //     'status' => 200,
+            //     'data' => $dataResult
+            // ]);
+           
+        }
+    }
+    return response()->json([
+        'status' => 200,
+        'data' => $dataResult
+    ]);
+}
+    
+    return response()->json([
+        'status' => 400,
+        'message' => 'No record found',
+    ]);
+   }
+
+
    public function showlogs(){
     $fId = session('facultyId');
     
+    //$found = Schedule::where('fId',$fId)->first();
+
     $found = Schedule::where('fId',$fId)->first();
+
+    if($found){
+        if($found->status == 'ON LEAVE' or $found->status == 'ON TRAVEL'){
+            $datenow = date('Y-m-d');
+            $found = Schedule::select("schedule.*")
+                    ->where('fId',$fId)                   
+                    ->whereRaw('? between fromdate and todate', $datenow)
+                    ->first();
+        }else{
+            $found = Schedule::where('fId',$fId)->whereDate('updated_at', Carbon::today())->first();
+        }
+    }
+    
     if($found){
         return response()->json([
             'status' => 200,

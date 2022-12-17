@@ -199,6 +199,14 @@
                           e.preventDefault();
                           var type = $(this).data('type');
                           $('#on-leave').find('input[name="type"]').val(type);
+                          console.log("typ:",type);
+                          if(type == 'meeting'){
+                            $('#on-leave').find('input[name="from"]').prop("type", "time");
+                            $('#on-leave').find('input[name="to"]').prop("type", "time");
+                          }else{
+                            $('#on-leave').find('input[name="from"]').prop("type", "date");
+                            $('#on-leave').find('input[name="to"]').prop("type", "date");
+                          }
                        $('#AccountModal').modal('show');
                   })
 
@@ -260,7 +268,14 @@
             });
 
 
-     function getInfo(){
+            function formatTime(timeString) {
+                const [hourString, minute] = timeString.split(":");
+                const hour = +hourString % 24;
+                return (hour % 12 || 12) + ":" + minute + (hour < 12 ? "AM" : "PM");
+            }
+           
+        function getInfo(){
+      
                   $.ajax({
                     url: '/faculty/show',
                     type: 'post',
@@ -281,6 +296,14 @@
                               </tr>')
                          
                      
+                        }else if(result.status == 400){
+                          $('.tbodyrow').html('<tr>\
+                                <td> </td>\
+                                <td></td>\
+                                <td></td>\
+                                <td></td>\
+                              </tr>')
+
                         }
                     }
                   })

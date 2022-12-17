@@ -30,7 +30,7 @@
     }
     .tcb-product-photo {
       text-align: center;
-      height: 180px;
+      height: 200px;
       background: #fff;
     }
     .tcb-product-photo img {
@@ -97,9 +97,7 @@
             <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner" role="listbox" style="margin-top: -90px;">
-                  <?php $countIndex = count($faculty);
-                        $countValue = 0;
-                  ?>
+                  <?php $countIndex = count($faculty);  $countValue = 0; ?>
                     <div class="item active">
                         <div class="row">
                           @foreach ($faculty as $key => $value)
@@ -120,12 +118,20 @@
                                         <div class="tcb-product-title">
                                             <h4><a href="#"> <b> {{ $value->firstname." ".$value->middlename." ".$value->lastname }}</b></a></h4></div>
                                         <div class="tcb-product-rating">
-                                           <p style="color: #000;" >{{ empty($value->Designation)?'':$value->Designation['name'] }} </p>
+                                           <p style="color: #000;" >{{ (empty($value->ItemName)?'':$value->ItemName['name'])}} <b class='text-danger'> | </b> {{(empty($value->Designation)?'':$value->Designation['name']) }} </p>
                                         </div>
                                         <div class="tcb-hline"></div>
                                         <div class="tcb-product-price text-right">
-                                            <a href="#" class="moreinfo" data-id="{{$value->id}}"> <small>More Info</small> </a>
-                                        </div>
+                                          <a href="#" class="moreinfo pull-right" data-id="{{$value->id}}"> <small>More Info</small> </a>
+                                          <h6 class="text-left"> <b>Expertise</b> </h6>
+                                          @if(!empty($expertise))
+                                            @foreach ($expertise as $item)
+                                              @if($item->empId == $value->id)
+                                                  <span class="badge badge-primary">{{ $item->description }}</span>
+                                              @endif
+                                            @endforeach
+                                          @endif
+                                      </div>
                                     </div>
                                 </div>
                             </div>
@@ -136,17 +142,10 @@
 
 
                    {{-- @if($countIndex > 3) --}}
-                   @if($countValue >= 3)
+                   @if($countIndex > 3)
                     <div class="item">
                       <div class="row">
                         @foreach ($faculty as $key => $value)
-
-                        {{--  <?php  $countValue++; ?>
-                       @if($key < 3) 
-                       @if($countValue <= 5)
-                           @if($key > 3)
- --}}
-                           {{-- @if($key > 4) --}}
                            @if ($key >= 3 && $key <= 5)
 
                             <div class="col-xs-6 col-sm-4">
@@ -158,12 +157,20 @@
                                       <div class="tcb-product-title">
                                           <h4><a href="#"> <b> {{ $value->firstname." ".$value->middlename." ".$value->lastname }}</b></a></h4></div>
                                       <div class="tcb-product-rating">
-                                        <p style="color: #000;" >{{ empty($value->Designation)?'':$value->Designation['name'] }} </p>
+                                        <p style="color: #000;" >{{ (empty($value->ItemName)?'':$value->ItemName['name'])}} <b class='text-danger'> | </b> {{(empty($value->Designation)?'':$value->Designation['name']) }} </p>
                                       </div>
                                       <div class="tcb-hline"></div>
                                       <div class="tcb-product-price text-right">
-                                          <a href="#" class="moreinfo" data-id="{{$value->id}}"> <small>More Info</small> </a>
-                                      </div>
+                                        <a href="#" class="moreinfo pull-right" data-id="{{$value->id}}"> <small>More Info</small> </a>
+                                        <h6 class="text-left"> <b>Expertise</b> </h6>
+                                        @if(!empty($expertise))
+                                          @foreach ($expertise as $item)
+                                            @if($item->empId == $value->id)
+                                                <span class="badge badge-primary">{{ $item->description }}</span>
+                                            @endif
+                                          @endforeach
+                                        @endif
+                                    </div>
                                   </div>
                               </div>
                            </div>
@@ -187,12 +194,20 @@
                                         <div class="tcb-product-title">
                                             <h4><a href="#"> <b> {{ $value->firstname." ".$value->middlename." ".$value->lastname }}</b></a></h4></div>
                                         <div class="tcb-product-rating">
-                                          <p style="color: #000;" >{{ empty($value->Designation)?'':$value->Designation['name'] }} </p>
+                                          <p style="color: #000;" >{{ (empty($value->ItemName)?'':$value->ItemName['name'])}} <b class='text-danger'> | </b> {{(empty($value->Designation)?'':$value->Designation['name']) }} </p>
                                         </div>
                                         <div class="tcb-hline"></div>
                                         <div class="tcb-product-price text-right">
-                                            <a href="#" class="moreinfo" data-id="{{$value->id}}"> <small>More Info</small> </a>
-                                        </div>
+                                          <a href="#" class="moreinfo pull-right" data-id="{{$value->id}}"> <small>More Info</small> </a>
+                                          <h6 class="text-left"> <b>Expertise</b> </h6>
+                                          @if(!empty($expertise))
+                                            @foreach ($expertise as $item)
+                                              @if($item->empId == $value->id)
+                                                  <span class="badge badge-primary">{{ $item->description }}</span>
+                                              @endif
+                                            @endforeach
+                                          @endif
+                                      </div>
                                     </div>
                                 </div>
                              </div>
@@ -218,12 +233,20 @@
                                           <div class="tcb-product-title">
                                               <h4><a href="#"> <b> {{ $value->firstname." ".$value->middlename." ".$value->lastname }}</b></a></h4></div>
                                           <div class="tcb-product-rating">
-                                            <p style="color: #000;" >{{ empty($value->Designation)?'':$value->Designation['name'] }} </p>
+                                            <p style="color: #000;" >{{ (empty($value->ItemName)?'':$value->ItemName['name'])}} <b class='text-danger'> | </b> {{(empty($value->Designation)?'':$value->Designation['name']) }} </p>
                                           </div>
                                           <div class="tcb-hline"></div>
                                           <div class="tcb-product-price text-right">
-                                              <a href="#" class="moreinfo" data-id="{{$value->id}}"> <small>More Info</small> </a>
-                                          </div>
+                                            <a href="#" class="moreinfo pull-right" data-id="{{$value->id}}"> <small>More Info</small> </a>
+                                            <h6 class="text-left"> <b>Expertise</b> </h6>
+                                            @if(!empty($expertise))
+                                              @foreach ($expertise as $item)
+                                                @if($item->empId == $value->id)
+                                                    <span class="badge badge-primary">{{ $item->description }}</span>
+                                                @endif
+                                              @endforeach
+                                            @endif
+                                        </div>
                                       </div>
                                   </div>
                                </div>
@@ -250,12 +273,20 @@
                                           <div class="tcb-product-title">
                                               <h4><a href="#"> <b> {{ $value->firstname." ".$value->middlename." ".$value->lastname }}</b></a></h4></div>
                                           <div class="tcb-product-rating">
-                                            <p style="color: #000;" >{{ empty($value->Designation)?'':$value->Designation['name'] }} </p>
+                                            <p style="color: #000;" >{{ (empty($value->ItemName)?'':$value->ItemName['name'])}} <b class='text-danger'> | </b> {{(empty($value->Designation)?'':$value->Designation['name']) }} </p>
                                           </div>
                                           <div class="tcb-hline"></div>
                                           <div class="tcb-product-price text-right">
-                                              <a href="#" class="moreinfo" data-id="{{$value->id}}"> <small>More Info</small> </a>
-                                          </div>
+                                            <a href="#" class="moreinfo pull-right" data-id="{{$value->id}}"> <small>More Info</small> </a>
+                                            <h6 class="text-left"> <b>Expertise</b> </h6>
+                                            @if(!empty($expertise))
+                                              @foreach ($expertise as $item)
+                                                @if($item->empId == $value->id)
+                                                    <span class="badge badge-primary">{{ $item->description }}</span>
+                                                @endif
+                                              @endforeach
+                                            @endif
+                                        </div>
                                       </div>
                                   </div>
                                </div>
@@ -281,12 +312,20 @@
                                             <div class="tcb-product-title">
                                                 <h4><a href="#"> <b> {{ $value->firstname." ".$value->middlename." ".$value->lastname }}</b></a></h4></div>
                                             <div class="tcb-product-rating">
-                                              <p style="color: #000;" >{{ empty($value->Designation)?'':$value->Designation['name'] }} </p>
+                                              <p style="color: #000;" >{{ (empty($value->ItemName)?'':$value->ItemName['name'])}} <b class='text-danger'> | </b> {{(empty($value->Designation)?'':$value->Designation['name']) }} </p>
                                             </div>
                                             <div class="tcb-hline"></div>
                                             <div class="tcb-product-price text-right">
-                                                <a href="#" class="moreinfo" data-id="{{$value->id}}"> <small>More Info</small> </a>
-                                            </div>
+                                              <a href="#" class="moreinfo pull-right" data-id="{{$value->id}}"> <small>More Info</small> </a>
+                                              <h6 class="text-left"> <b>Expertise</b> </h6>
+                                              @if(!empty($expertise))
+                                                @foreach ($expertise as $item)
+                                                  @if($item->empId == $value->id)
+                                                      <span class="badge badge-primary">{{ $item->description }}</span>
+                                                  @endif
+                                                @endforeach
+                                              @endif
+                                          </div>
                                         </div>
                                     </div>
                                  </div>
@@ -313,12 +352,20 @@
                                             <div class="tcb-product-title">
                                                 <h4><a href="#"> <b> {{ $value->firstname." ".$value->middlename." ".$value->lastname }}</b></a></h4></div>
                                             <div class="tcb-product-rating">
-                                              <p style="color: #000;" >{{ empty($value->Designation)?'':$value->Designation['name'] }} </p>
+                                              <p style="color: #000;" >{{ (empty($value->ItemName)?'':$value->ItemName['name'])}} <b class='text-danger'> | </b> {{(empty($value->Designation)?'':$value->Designation['name']) }} </p>
                                             </div>
                                             <div class="tcb-hline"></div>
                                             <div class="tcb-product-price text-right">
-                                                <a href="#" class="moreinfo" data-id="{{$value->id}}"> <small>More Info</small> </a>
-                                            </div>
+                                              <a href="#" class="moreinfo pull-right" data-id="{{$value->id}}"> <small>More Info</small> </a>
+                                              <h6 class="text-left"> <b>Expertise</b> </h6>
+                                              @if(!empty($expertise))
+                                                @foreach ($expertise as $item)
+                                                  @if($item->empId == $value->id)
+                                                      <span class="badge badge-primary">{{ $item->description }}</span>
+                                                  @endif
+                                                @endforeach
+                                              @endif
+                                          </div>
                                         </div>
                                     </div>
                                  </div>
@@ -345,12 +392,20 @@
                                               <div class="tcb-product-title">
                                                   <h4><a href="#"> <b> {{ $value->firstname." ".$value->middlename." ".$value->lastname }}</b></a></h4></div>
                                               <div class="tcb-product-rating">
-                                                <p style="color: #000;" >{{ empty($value->Designation)?'':$value->Designation['name'] }} </p>
+                                                <p style="color: #000;" >{{ (empty($value->ItemName)?'':$value->ItemName['name'])}} <b class='text-danger'> | </b> {{(empty($value->Designation)?'':$value->Designation['name']) }} </p>
                                               </div>
                                               <div class="tcb-hline"></div>
                                               <div class="tcb-product-price text-right">
-                                                  <a href="#" class="moreinfo" data-id="{{$value->id}}"> <small>More Info</small> </a>
-                                              </div>
+                                                <a href="#" class="moreinfo pull-right" data-id="{{$value->id}}"> <small>More Info</small> </a>
+                                                <h6 class="text-left"> <b>Expertise</b> </h6>
+                                                @if(!empty($expertise))
+                                                  @foreach ($expertise as $item)
+                                                    @if($item->empId == $value->id)
+                                                        <span class="badge badge-primary">{{ $item->description }}</span>
+                                                    @endif
+                                                  @endforeach
+                                                @endif
+                                            </div>
                                           </div>
                                       </div>
                                    </div>
@@ -377,12 +432,20 @@
                                               <div class="tcb-product-title">
                                                   <h4><a href="#"> <b> {{ $value->firstname." ".$value->middlename." ".$value->lastname }}</b></a></h4></div>
                                               <div class="tcb-product-rating">
-                                                <p style="color: #000;" >{{ empty($value->Designation)?'':$value->Designation['name'] }} </p>
+                                                <p style="color: #000;" >{{ (empty($value->ItemName)?'':$value->ItemName['name'])}} <b class='text-danger'> | </b> {{(empty($value->Designation)?'':$value->Designation['name']) }} </p>
                                               </div>
                                               <div class="tcb-hline"></div>
                                               <div class="tcb-product-price text-right">
-                                                  <a href="#" class="moreinfo" data-id="{{$value->id}}"> <small>More Info</small> </a>
-                                              </div>
+                                                <a href="#" class="moreinfo pull-right" data-id="{{$value->id}}"> <small>More Info</small> </a>
+                                                <h6 class="text-left"> <b>Expertise</b> </h6>
+                                                @if(!empty($expertise))
+                                                  @foreach ($expertise as $item)
+                                                    @if($item->empId == $value->id)
+                                                        <span class="badge badge-primary">{{ $item->description }}</span>
+                                                    @endif
+                                                  @endforeach
+                                                @endif
+                                            </div>
                                           </div>
                                       </div>
                                    </div>
@@ -425,8 +488,8 @@
                     <th>REMARKS</th>
                   </tr>
                 </thead>
-                <tbody>
-                  @if($schedule)
+                <tbody class="tbodyrow">
+                  {{-- @if($schedule)
                   @foreach($schedule as $value)
                   <tr>
                     <td> <b> {{ empty($value['faculty'])?'':$value['faculty']['firstname']." ".$value['faculty']['middlename']." ".$value['faculty']['lastname'] }} </b> </td>
@@ -436,7 +499,7 @@
                     <td>{{ $value['remarks'] }}</td>
                   </tr>
                   @endforeach
-                  @endif
+                  @endif --}}
                 </tbody>
               </table>
             </div>
@@ -530,7 +593,7 @@
      });
 
 
-
+     getInfo()
     //  $('#mytable > tbody > tr')
     //       .find('td')
     //       .wrapInner('<div style="display: block;" />')
@@ -668,6 +731,52 @@
                                 
 
             })
+
+
+
+            function getInfo(){
+      
+                $.ajax({
+                  url: '/employee/showlog',
+                  type: 'post',
+                  dataType: 'json',
+                  beforeSend:function(){
+                  // $('#bills-form')[0].reset();
+                    // $('.loading-select').html('<i class="spinner-border spinner-border-sm"></i> Loading... ');
+                  },
+                  success:function(result){
+                      console.log('res: ', result);
+                      if(result.status == 200){
+
+
+                        result.data.forEach(element => {
+                          $('.tbodyrow').append('<tr>\
+                              <td> '+(element.name?element.name:'')+'</td>\
+                              <td> '+(element.timein?element.timein:'')+'</td>\
+                              <td>'+(element.timeout?element.timeout:'')+'</td>\
+                              <td>'+(element.status?element.status:'')+'</td>\
+                              <td> '+(element.remarks?element.remarks:'')+'</td>\
+                            </tr>')
+                        });
+
+                      
+                      
+                  
+                      }else if(result.status == 400){
+                        $('.tbodyrow').html('<tr>\
+                              <td> </td>\
+                              <td> </td>\
+                              <td></td>\
+                              <td></td>\
+                              <td></td>\
+                            </tr>')
+
+                      }
+                  }
+                })
+
+              }
+
 
 
 
