@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Expertise;
 use App\Models\Faculty;
 use App\Models\Schedule;
 use Carbon\Carbon;
@@ -16,6 +17,7 @@ class DashboardController extends Controller
         }
         $faculty = Faculty::all();
         $schedule = Schedule::all();
+        $expertise = Expertise::all();
         $now = Carbon::now();
        $dataArray = new Collection();
        $datein = '';
@@ -71,6 +73,6 @@ class DashboardController extends Controller
                 }
 
         }   
-        return view('admin.index', compact('faculty','schedule'));
+        return view('admin.index', compact('faculty','schedule','expertise'));
     }
 }

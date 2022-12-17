@@ -53,6 +53,8 @@ Route::group(['prefix' => 'employee', 'middleware' => ['admin']], function() {
     // Route::post('/one', [DepartmentController::class, 'one']);
     Route::post('/one', [EmployeeController::class, 'one']);
      Route::post('/delete', [EmployeeController::class, 'destroy']);
+     Route::post('/showlog', [EmployeeController::class, 'showlogsall']);
+
 });
 
 
