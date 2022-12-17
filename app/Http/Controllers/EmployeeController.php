@@ -91,7 +91,7 @@ class EmployeeController extends Controller
             $savea->username = $save->employeeId;
             $savea->password = \Hash::make('12345');
             $savea->facultyId = $save->id;
-            $savea->usertype = $request->designation==4?2:3;
+            $savea->usertype = $request->itemname==4?2:3;
             if( $imgCheck){
                 $savea->photo = $path;
             }
