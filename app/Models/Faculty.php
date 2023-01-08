@@ -20,6 +20,7 @@ class Faculty extends Model
     {
         return $this->hasOne(ItemName::class,'id','itemname');
     }
+   
 
   
 }

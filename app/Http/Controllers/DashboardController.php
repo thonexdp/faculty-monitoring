@@ -27,6 +27,7 @@ class DashboardController extends Controller
        $daterangeb = false;
         //$isToday = $date->isToday();
 
+        
         // $isYesterday = $date->isYesterday();
 
         // $isTodayOrYesterday =  $date->isToday() || $date->isYesterday();
@@ -49,19 +50,23 @@ class DashboardController extends Controller
             }
             $startDate = '';
             $endDate = '';
-            if(!empty($item->fromdate)){
-                $startDate = Carbon::createFromFormat('Y-m-d',$item->fromdate);
-            }
-            if(!empty($item->todate)){
-                $endDate = Carbon::createFromFormat('Y-m-d',$item->todate);
-            }
-            if(!empty($startDate) and !empty($endDate)){
-                $daterangeb = Carbon::now()->between($startDate,$endDate);
-            }else if(!empty($startDate) and empty($endDate)){
-                $daterangeb = $startDate->isToday();
-            }else if(!empty($endDate) and empty($startDate)){
-                $daterangeb = $endDate->isToday();
-            }
+            $statusAr = array('ON MEETING','ON LEAVE','ON TRAVEL');
+                if(!in_array($item->status,$statusAr)){
+                    if(!empty($item->fromdate)){
+                        $startDate = Carbon::createFromFormat('Y-m-d',$item->fromdate);
+                    }
+                    if(!empty($item->todate)){
+                        $endDate = Carbon::createFromFormat('Y-m-d',$item->todate);
+                    }
+                    if(!empty($startDate) and !empty($endDate)){
+                        $daterangeb = Carbon::now()->between($startDate,$endDate);
+                    }else if(!empty($startDate) and empty($endDate)){
+                        $daterangeb = $startDate->isToday();
+                    }else if(!empty($endDate) and empty($startDate)){
+                        $daterangeb = $endDate->isToday();
+                    }
+                }
+
                 if($dateinb or $dateoutb or $daterangeb){
                     $dataArray->push([
                         'name' => empty($item->faculty)?'':($item->faculty['firstname'].' '.$item->faculty['middlename'].' '.$item->faculty['lastname']),
@@ -73,6 +78,7 @@ class DashboardController extends Controller
                 }
 
         }   
+        
         return view('admin.index', compact('faculty','schedule','expertise'));
     }
 }

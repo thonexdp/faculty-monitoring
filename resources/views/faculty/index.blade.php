@@ -25,7 +25,7 @@
           <div class="col-lg-2 col-sm-2">
             {{-- <h4>Jenifer Smith</h4> --}}
             <div class="follow-ava">
-              <img src="{{ empty($faculty)?'':empty($faculty->photo)?asset('img/emptyprofile.png'):asset('storage/images/'.$faculty->photo) }}" alt="" style="width: 150px; height : 150px;">
+              <img src="{{ empty($faculty)?'':(empty($faculty->photo)?asset('img/emptyprofile.png'):(asset('storage/images/'.$faculty->photo))) }}" alt="" style="width: 150px; height : 150px;">
             </div>
             <h6>Faculty</h6>
           </div>
@@ -123,8 +123,8 @@
                               <tr>
                                 <th scope="col">Time In</th>
                                 <th scope="col">Time Out</th>
-                                <th scope="col">Remarks</th>
                                 <th scope="col">Status <small> <i>(YYYY-MM-DD)</i> </small> </th>
+                                <th scope="col">Remarks</th>
                               </tr>
                             </thead>
                             <tbody class="tbodyrow">
@@ -144,7 +144,39 @@
       </section>
     </div>
   </div>
-
+  <div class="modal fade" id="StatusModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Status</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form>
+        <div class="modal-body">
+          <div class="row">
+              <div class="col-12">
+                <input class=" form-control" name="type-c" type="hidden" />
+                <div class="form-group ">
+                  <label for="fullname" class="control-label col-md-2">Remarks</label>
+                  <div class="col-md-10">
+                    <textarea class=" form-control" name="status-c" rows="4">
+                    </textarea>
+                    {{-- <input class=" form-control" name="status-c" type="text" /> --}}
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary submitattendance">Submit</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
 
 
   <div class="modal fade" id="AccountModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -195,6 +227,7 @@
      });
      getInfo()
 
+          var isIncampus = false;
                 $(document).on("click", ".onButton" , function(e) {
                           e.preventDefault();
                           var type = $(this).data('type');
@@ -211,15 +244,19 @@
                   })
 
 
-               $(document).on("click", ".attendance" , function(e) {
-              e.preventDefault();
-              var type = $(this).data('type');
+                  
 
+                  $(document).on("click", ".submitattendance" , function(e) {
+                  e.preventDefault();
+                      var type =  $('input[name="type-c"]').val()
+                      var status = $('textarea[name="status-c"]').val()
+                  
+                      console.log(type,status);
                          $.ajax({
                               url: '/faculty/savelogs',
                               type: 'post',
                               data: {
-                                type
+                                type,status
                                 },
                               dataType: 'json',
                               beforeSend:function(){
@@ -235,12 +272,20 @@
                                   else{
                                     alert('error')
                                     //toastr.error('Error: Please try again!')
-
                                   }
-                              }
-                            })
+                                   $('#StatusModal').modal('hide');
 
-     })
+                              }
+                        })
+
+                })
+
+               $(document).on("click", ".attendance" , function(e) {
+               e.preventDefault();
+                      var type = $(this).data('type');
+                      $('input[name="type-c"]').val(type)
+                      $('#StatusModal').modal('show');
+                })
 
 
           $(document).on("submit", "#on-leave" , function(e) {
@@ -287,7 +332,8 @@
                     success:function(result){
                         console.log('res: ', result);
                         if(result.status == 200){
-
+                          var status = result.data.status?result.data.status:'';
+                          $('textarea[name="status-c"]').val(status)
                           $('.tbodyrow').html('<tr>\
                                 <td> '+(result.data.timein?result.data.timein:'')+'</td>\
                                 <td>'+(result.data.timeout?result.data.timeout:'')+'</td>\

@@ -54,9 +54,9 @@ class AccountController extends Controller
             if($value['usertype'] == 1){
                 $usertype = 'Admin';
             }else if($value['usertype'] == 2){
-                $usertype = 'Faculty';
-            }else if($value['usertype'] == 3){
                 $usertype = 'Dean';
+            }else if($value['usertype'] == 3){
+                $usertype = 'Faculty';
             }
                 $dataResult->push([
                     'id' => $key + 1,
