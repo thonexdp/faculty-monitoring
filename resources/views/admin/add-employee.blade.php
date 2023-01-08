@@ -147,7 +147,7 @@
                       <div class="skills">
                         @if($expertise)
                           @foreach($expertise as $item)
-                           <a href="javascript::void(0)" class="list-group-item list-group-item-action">{{$item->description}}</a><input type="hidden" name="expertiselist[]" value="{{$item->description}}"> 
+                           <a href="javascript::void(0)" class="list-group-item list-group-item-action">{{$item->description}} <i data-id="{{$item->id}}" class="pull-right text-danger fa fa-trash-o delete-ex"></i> </a><input type="hidden" name="expertiselist[]" value="{{$item->description}}"> 
                           @endforeach
                         @endif
                       </div>
@@ -252,10 +252,39 @@
        e.preventDefault();
        var description = $('#register_form').find('input[name="expertise"]').val();
         if(description){
-          $('.skills').append('<a href="javascript::void(0)" class="list-group-item list-group-item-action">'+description+'</a><input type="hidden" name="expertiselist[]" value="'+description+'"> ')
+          $('.skills').append('<a href="javascript::void(0)" class="list-group-item list-group-item-action">'+description+' <i class="pull-right text-danger fa fa-trash-o del-ex"></i></a><input type="hidden" name="expertiselist[]" value="'+description+'">')
         }
         $('#register_form').find('input[name="expertise"]').val('');
      })
+
+
+     
+     $(document).on("click", ".del-ex" , function(e) {
+       e.preventDefault();
+       $(this).parent().remove(); 
+     });
+
+     $(document).on("click", ".delete-ex" , function(e) {
+       e.preventDefault();
+       const id = $(this).data('id');
+
+       console.log('id',id);
+       $(this).parent().remove(); 
+                    $.ajax({
+                     url: '/employee/expertise/delete',
+                     type: 'post',
+                     data: {
+                           id
+                       },
+                     dataType: 'json',
+                     beforeSend:function(){
+                       // $('.loading-select').html('<i class="spinner-border spinner-border-sm"></i> Loading... ');
+                     },
+                     success:function(result){
+                        console.log(result);
+                     }
+                   })
+     });
 
      $( '#register_form' ).submit( function( e ) {
       e.preventDefault();

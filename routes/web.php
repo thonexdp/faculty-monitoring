@@ -54,6 +54,8 @@ Route::group(['prefix' => 'employee', 'middleware' => ['admin']], function() {
     Route::post('/one', [EmployeeController::class, 'one']);
      Route::post('/delete', [EmployeeController::class, 'destroy']);
      Route::post('/showlog', [EmployeeController::class, 'showlogsall']);
+     Route::post('/expertise/delete', [EmployeeController::class, 'expertisedel']);
+     
 
 });
 

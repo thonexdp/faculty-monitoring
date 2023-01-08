@@ -181,6 +181,24 @@ class EmployeeController extends Controller
        ]);
    }
 
+   public function expertisedel(Request $request)
+   {
+       $result = Expertise::find($request->id);
+       if($result){
+           $result->delete();
+           return response()->json([
+               'status' => 200,
+               'message' => 'Deleted Successfully'
+           ]);
+       }
+       return response()->json([
+           'status' => 400,
+           'message' => 'No record found',
+       ]);
+   }
+
+   
+
    public function one(Request $request)
    {
        $result = Faculty::find($request->id);
@@ -200,6 +218,7 @@ class EmployeeController extends Controller
 
    public function savelogs(Request $request){
     $type = $request->type;
+    $status = $request->status;
     $fId = session('facultyId');
     $typeOn = array("meeting", "leave", "travel");
     $found = Schedule::where('fId',$fId)->first();
@@ -207,11 +226,11 @@ class EmployeeController extends Controller
         if($type == 'in'){
             $found->timein = Carbon::now();
             $found->status = null;
-            $found->remarks = null;
+            $found->remarks = $status;
         }else if($type == 'out'){
             $found->timeout = Carbon::now();
             $found->status = null;
-            $found->remarks = null;
+            $found->remarks = $status;
         }else if(in_array($type, $typeOn)){
             $remarksz = '';
             if($type == 'meeting'){
