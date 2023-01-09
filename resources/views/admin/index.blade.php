@@ -86,11 +86,13 @@
       <ol class="breadcrumb">
         <li><i class="fa fa-home"></i><a href="index.html">Dashboard</a></li>
         {{-- <li><i class="icon_document_alt"></i>Add</li> --}}
+        <button class="btn btn-sm pull-right viewd">View</button>
       </ol>
+     
     </div>
   </div>
   <div class="row">
-    <div class="col-md-5">
+    <div class="col-md-5 col5">
       <div class="row">
         <div class="col-md-12">
           <ul class="list-group list-group-flush">
@@ -114,7 +116,8 @@
         </div>
       </div>
     </div>
-    <div class="col-md-7">
+    
+    <div class="col-md-7 col7">
       <div class="tcb-product-slider">
         <div class="container">
 
@@ -314,7 +317,7 @@
   </div>
    @include('include.scripts')
   <script>
-
+  var view = false;
   $(document).ready( function () {
   $.ajaxSetup({
        headers: {  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
@@ -333,6 +336,23 @@
 
     //       });
 
+
+   
+
+    $(document).on("click", ".viewd" , function(e) {
+              e.preventDefault();
+              view = !view
+              if(view){
+                $('.col5').hide()
+                $('.col7').removeClass('col-md-7')
+                $('.col7').addClass('col-md-12')
+              }else{
+                $('.col5').show()
+                $('.col7').removeClass('col-md-12')
+                $('.col7').addClass('col-md-7')
+              }
+
+    })
 
     
     $(document).on("click", ".moreinfo" , function(e) {
