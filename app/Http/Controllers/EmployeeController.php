@@ -217,6 +217,7 @@ class EmployeeController extends Controller
    }
 
    public function savelogs(Request $request){
+  
     $type = $request->type;
     $status = $request->status;
     $fId = session('facultyId');
@@ -242,8 +243,10 @@ class EmployeeController extends Controller
             $found->timeout = null;
             $found->status = 'ON '.strtoupper($type);
             $found->remarks = $remarksz;//(empty($request->from)?'':date('F m, Y', strtotime($request->from))) ." - ".(empty($request->to)?'':date('F m, Y', strtotime($request->to)));
-            $found->fromdate = $request->from;
-            $found->todate = $request->to;
+            if($type != 'meeting'){
+                $found->fromdate = $request->from;
+                $found->todate = $request->to;
+                }
         }
        // $found->fId = $fId;
         $found->update();
@@ -260,10 +263,12 @@ class EmployeeController extends Controller
             }else{
                 $remarksz  = $request->from." - ".$request->to;
             }
-            $found->status = 'ON '.strtoupper($type);
+            $found->status = 'ON '.(empty($type)?"":strtoupper($type));
             $found->remarks = $remarksz;//(empty($request->from)?'':date('D m Y', strtotime($request->from))) ." - ".(empty($request->to)?'':date('D m Y', strtotime($request->to)));
+            if($type != 'meeting'){
             $found->fromdate = $request->from;
             $found->todate = $request->to;
+            }
         }
         $save->fId = $fId;
         $save->save();
@@ -285,6 +290,7 @@ class EmployeeController extends Controller
     $dataResult = new Collection();
     
     $datas = Schedule::all();
+
 if(sizeof($datas) > 0){
     foreach($datas as $data){
         if($data->status == 'ON LEAVE' or $data->status == 'ON TRAVEL'){
@@ -311,7 +317,6 @@ if(sizeof($datas) > 0){
                     }
         }else{
             $datas2 = Schedule::whereDate('updated_at', Carbon::today())->get();
-          //  dd( $datas2);
           
             foreach($datas2 as $data2){
                 if(!$dataResult->contains('id', $data2->id)){
